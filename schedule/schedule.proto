@@ -9,9 +9,18 @@ message DayScheduleList {repeated DaySchedule schedule = 1;}
 
 message GetByDateRequest {string date = 1;}
 
+message MovieId {string id = 1;}
+
+message IsOperationSuccessful {bool success = 1;}
+
 message Empty {}
 
-service Schedule {// Returns the full schedule
+service Schedule {
+  // Adds a movie to the schedule
+  rpc AddMovieToSchedule(MovieId) returns (IsOperationSuccessful) {}
+  // Removes a movie from the schedule
+  rpc RemoveMovieFromSchedule(MovieId) returns (IsOperationSuccessful) {}
+  // Returns the full schedule
   rpc GetAll(Empty) returns (DayScheduleList) {}
   // Returns schedule for a single date
   rpc GetByDate(GetByDateRequest) returns (DaySchedule) {}}
