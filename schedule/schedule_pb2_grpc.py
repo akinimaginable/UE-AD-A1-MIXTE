@@ -26,8 +26,7 @@ if _version_not_supported:
 
 
 class ScheduleStub(object):
-    """Returns the full schedule
-    """
+    """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
         """Constructor.
@@ -35,6 +34,16 @@ class ScheduleStub(object):
         Args:
             channel: A grpc.Channel.
         """
+        self.AddMovieToSchedule = channel.unary_unary(
+                '/schedule.Schedule/AddMovieToSchedule',
+                request_serializer=schedule__pb2.MovieId.SerializeToString,
+                response_deserializer=schedule__pb2.IsOperationSuccessful.FromString,
+                _registered_method=True)
+        self.RemoveMovieFromSchedule = channel.unary_unary(
+                '/schedule.Schedule/RemoveMovieFromSchedule',
+                request_serializer=schedule__pb2.MovieId.SerializeToString,
+                response_deserializer=schedule__pb2.IsOperationSuccessful.FromString,
+                _registered_method=True)
         self.GetAll = channel.unary_unary(
                 '/schedule.Schedule/GetAll',
                 request_serializer=schedule__pb2.Empty.SerializeToString,
@@ -48,11 +57,25 @@ class ScheduleStub(object):
 
 
 class ScheduleServicer(object):
-    """Returns the full schedule
-    """
+    """Missing associated documentation comment in .proto file."""
+
+    def AddMovieToSchedule(self, request, context):
+        """Adds a movie to the schedule
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def RemoveMovieFromSchedule(self, request, context):
+        """Removes a movie from the schedule
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def GetAll(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Returns the full schedule
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -67,6 +90,16 @@ class ScheduleServicer(object):
 
 def add_ScheduleServicer_to_server(servicer, server):
     rpc_method_handlers = {
+            'AddMovieToSchedule': grpc.unary_unary_rpc_method_handler(
+                    servicer.AddMovieToSchedule,
+                    request_deserializer=schedule__pb2.MovieId.FromString,
+                    response_serializer=schedule__pb2.IsOperationSuccessful.SerializeToString,
+            ),
+            'RemoveMovieFromSchedule': grpc.unary_unary_rpc_method_handler(
+                    servicer.RemoveMovieFromSchedule,
+                    request_deserializer=schedule__pb2.MovieId.FromString,
+                    response_serializer=schedule__pb2.IsOperationSuccessful.SerializeToString,
+            ),
             'GetAll': grpc.unary_unary_rpc_method_handler(
                     servicer.GetAll,
                     request_deserializer=schedule__pb2.Empty.FromString,
@@ -86,8 +119,61 @@ def add_ScheduleServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class Schedule(object):
-    """Returns the full schedule
-    """
+    """Missing associated documentation comment in .proto file."""
+
+    @staticmethod
+    def AddMovieToSchedule(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/schedule.Schedule/AddMovieToSchedule',
+            schedule__pb2.MovieId.SerializeToString,
+            schedule__pb2.IsOperationSuccessful.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def RemoveMovieFromSchedule(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/schedule.Schedule/RemoveMovieFromSchedule',
+            schedule__pb2.MovieId.SerializeToString,
+            schedule__pb2.IsOperationSuccessful.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def GetAll(request,

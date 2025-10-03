@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0eschedule.proto\x12\x08schedule\"+\n\x0b\x44\x61ySchedule\x12\x0c\n\x04\x64\x61te\x18\x01 \x01(\t\x12\x0e\n\x06movies\x18\x02 \x03(\t\":\n\x0f\x44\x61yScheduleList\x12\'\n\x08schedule\x18\x01 \x03(\x0b\x32\x15.schedule.DaySchedule\" \n\x10GetByDateRequest\x12\x0c\n\x04\x64\x61te\x18\x01 \x01(\t\"\x07\n\x05\x45mpty2\x84\x01\n\x08Schedule\x12\x36\n\x06GetAll\x12\x0f.schedule.Empty\x1a\x19.schedule.DayScheduleList\"\x00\x12@\n\tGetByDate\x12\x1a.schedule.GetByDateRequest\x1a\x15.schedule.DaySchedule\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0eschedule.proto\x12\x08schedule\"+\n\x0b\x44\x61ySchedule\x12\x0c\n\x04\x64\x61te\x18\x01 \x01(\t\x12\x0e\n\x06movies\x18\x02 \x03(\t\":\n\x0f\x44\x61yScheduleList\x12\'\n\x08schedule\x18\x01 \x03(\x0b\x32\x15.schedule.DaySchedule\" \n\x10GetByDateRequest\x12\x0c\n\x04\x64\x61te\x18\x01 \x01(\t\"\x15\n\x07MovieId\x12\n\n\x02id\x18\x01 \x01(\t\"(\n\x15IsOperationSuccessful\x12\x0f\n\x07success\x18\x01 \x01(\x08\"\x07\n\x05\x45mpty2\xa1\x02\n\x08Schedule\x12J\n\x12\x41\x64\x64MovieToSchedule\x12\x11.schedule.MovieId\x1a\x1f.schedule.IsOperationSuccessful\"\x00\x12O\n\x17RemoveMovieFromSchedule\x12\x11.schedule.MovieId\x1a\x1f.schedule.IsOperationSuccessful\"\x00\x12\x36\n\x06GetAll\x12\x0f.schedule.Empty\x1a\x19.schedule.DayScheduleList\"\x00\x12@\n\tGetByDate\x12\x1a.schedule.GetByDateRequest\x1a\x15.schedule.DaySchedule\"\x00\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -37,8 +37,12 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_DAYSCHEDULELIST']._serialized_end=131
   _globals['_GETBYDATEREQUEST']._serialized_start=133
   _globals['_GETBYDATEREQUEST']._serialized_end=165
-  _globals['_EMPTY']._serialized_start=167
-  _globals['_EMPTY']._serialized_end=174
-  _globals['_SCHEDULE']._serialized_start=177
-  _globals['_SCHEDULE']._serialized_end=309
+  _globals['_MOVIEID']._serialized_start=167
+  _globals['_MOVIEID']._serialized_end=188
+  _globals['_ISOPERATIONSUCCESSFUL']._serialized_start=190
+  _globals['_ISOPERATIONSUCCESSFUL']._serialized_end=230
+  _globals['_EMPTY']._serialized_start=232
+  _globals['_EMPTY']._serialized_end=239
+  _globals['_SCHEDULE']._serialized_start=242
+  _globals['_SCHEDULE']._serialized_end=531
 # @@protoc_insertion_point(module_scope)
