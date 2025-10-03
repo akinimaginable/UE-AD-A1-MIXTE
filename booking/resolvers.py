@@ -1,9 +1,12 @@
 import json
 import requests
+import grpc
+import schedule_pb2
+import schedule_pb2_grpc
 
 # URLs des autres microservices
 MOVIE_SERVICE_URL = "http://localhost:3001"  # Service Movie en GraphQL
-SCHEDULE_SERVICE_URL = "http://localhost:3202"
+SCHEDULE_SERVICE_URL = "localhost:3002"  # Service Schedule en gRPC
 USER_SERVICE_URL = "http://localhost:3203"
 
 # Chargement de la base de données des réservations
@@ -48,15 +51,33 @@ def get_movie_details(movie_id):
         return None
 
 
-def get_schedule_details(movie_id, date):
-    """Récupère les détails d'un horaire depuis le service Schedule"""
+def get_schedule_by_date(date):
+    """Récupère le planning d'une date depuis le service Schedule via gRPC"""
     try:
-        response = requests.get(f"{SCHEDULE_SERVICE_URL}/schedule/{movie_id}/{date}")
-        if response.status_code == 200:
-            return response.json()
+        # Connexion au service Schedule via gRPC
+        with grpc.insecure_channel(SCHEDULE_SERVICE_URL) as channel:
+            stub = schedule_pb2_grpc.ScheduleStub(channel)
+            request = schedule_pb2.GetByDateRequest(date=date)
+            response = stub.GetByDate(request)
+            
+            # Retourner un format compatible avec le code existant
+            if response.movies:
+                return {
+                    "date": response.date,
+                    "movies": list(response.movies)
+                }
+            return None
+    except grpc.RpcError as e:
+        print(f"Erreur gRPC lors de la récupération du planning: {e}")
         return None
-    except requests.RequestException:
-        return None
+
+
+def get_schedule_details(movie_id, date):
+    """Vérifie si un film est programmé à une date donnée"""
+    schedule = get_schedule_by_date(date)
+    if schedule and movie_id in schedule["movies"]:
+        return schedule
+    return None
 
 
 def get_user_details(userid):
@@ -118,10 +139,12 @@ def detailed_bookings_by_user_resolver(obj, info, userid):
         date = date_entry['date']
         movies_details = []
         
+        # Récupération du planning de la date
+        schedule_details = get_schedule_by_date(date)
+        
         # Récupération des détails pour chaque film réservé
         for movie_id in date_entry['movies']:
             movie_details = get_movie_details(movie_id)
-            schedule_details = get_schedule_details(movie_id, date)
             
             if movie_details and schedule_details:
                 movies_details.append({
