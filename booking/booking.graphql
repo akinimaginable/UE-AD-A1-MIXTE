@@ -1,0 +1,64 @@
+type DateBooking {
+    date: String!
+    movies: [String!]!
+}
+
+type Booking {
+    userid: String!
+    dates: [DateBooking!]!
+}
+
+type Movie {
+    id: String!
+    title: String!
+    rating: Float!
+    director: String!
+}
+
+type Schedule {
+    date: String!
+    movies: [String!]!
+}
+
+type MovieWithSchedule {
+    movie: Movie!
+    schedule: Schedule!
+}
+
+type DetailedDateBooking {
+    date: String!
+    movies: [MovieWithSchedule!]!
+}
+
+type DetailedBooking {
+    userid: String!
+    bookings: [DetailedDateBooking!]!
+}
+
+type Query {
+    all_bookings(userid: String!): [Booking!]!
+    bookings_by_user(userid: String!): Booking
+    detailed_bookings_by_user(userid: String!): DetailedBooking
+}
+
+input CreateBookingInput {
+    userid: String!
+    movieid: String!
+    date: String!
+}
+
+type BookingResponse {
+    message: String!
+    booking: CreateBookingInput
+}
+
+type DeleteResponse {
+    message: String!
+}
+
+type Mutation {
+    create_booking(input: CreateBookingInput!): BookingResponse!
+    delete_booking(userid: String!, movieid: String!, date: String!): DeleteResponse!
+    delete_all_user_bookings(userid: String!): DeleteResponse!
+}
+

@@ -1,3 +1,39 @@
+type Movie {
+    id: String!
+    title: String!
+    rating: Float!
+    director: String!
+}
+
 type Query {
-    movie_with_id(_id: String!): Movie
+    all_movies: [Movie!]!
+    movie_by_id(id: String!): Movie
+    movie_by_title(title: String!): Movie
+}
+
+input MovieInput {
+    id: String!
+    title: String!
+    rating: Float!
+    director: String!
+    author: String!
+}
+
+input UpdateRatingInput {
+    author: String!
+}
+
+input DeleteMovieInput {
+    author: String!
+}
+
+type MovieResponse {
+    message: String!
+    movie: Movie
+}
+
+type Mutation {
+    add_movie(movie: MovieInput!): MovieResponse!
+    update_movie_rating(id: String!, rating: Float!, author: String!): MovieResponse!
+    delete_movie(id: String!, author: String!): MovieResponse!
 }
