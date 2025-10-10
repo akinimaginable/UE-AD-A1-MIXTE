@@ -1,7 +1,65 @@
 services:
+  booking:
+    build: ./booking/
+    ports:
+      - "3203:3203"
+
   movie:
     build: ./movie/
     ports:
       - "3200:3200"
-  # to continue
 
+  schedule:
+    build: ./schedule/
+    ports:
+      - "3202:3202"
+
+  user:
+    build: ./user/
+    ports:
+      - "3201:3201"
+
+  # Databases
+  booking-db:
+    image: mongo:8.0.15-noble
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "root"
+      MONGO_INITDB_ROOT_PASSWORD: "*65%8XPuGaQ#"
+    volumes:
+      - movie-db:/data/db
+
+  movie-db:
+    image: mongo:8.0.15-noble
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "root"
+      MONGO_INITDB_ROOT_PASSWORD: "*65%8XPuGaQ#"
+    volumes:
+      - movie-db:/data/db
+
+  schedule-db:
+    image: mongo:8.0.15-noble
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "root"
+      MONGO_INITDB_ROOT_PASSWORD: "*65%8XPuGaQ#"
+    volumes:
+      - movie-db:/data/db
+
+  user-db:
+    image: mongo:8.0.15-noble
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "root"
+      MONGO_INITDB_ROOT_PASSWORD: "*65%8XPuGaQ#"
+    volumes:
+      - movie-db:/data/db
