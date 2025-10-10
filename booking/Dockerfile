@@ -1,6 +1,10 @@
 FROM python:3.14-alpine
+
 WORKDIR /app
-COPY requirements.txt /app
+
+COPY requirements.txt .
 RUN pip install -r requirements.txt
-ADD . /app/
-CMD ["python","-u","booking.py"]
+
+COPY booking .
+
+CMD ["python", "booking.py"]

@@ -47,9 +47,16 @@ input CreateBookingInput {
     date: String!
 }
 
+# Output type for the created booking payload
+type CreatedBooking {
+    userid: String!
+    movieid: String!
+    date: String!
+}
+
 type BookingResponse {
     message: String!
-    booking: CreateBookingInput
+    booking: CreatedBooking
 }
 
 type DeleteResponse {
@@ -61,4 +68,3 @@ type Mutation {
     delete_booking(userid: String!, movieid: String!, date: String!): DeleteResponse!
     delete_all_user_bookings(userid: String!): DeleteResponse!
 }
-

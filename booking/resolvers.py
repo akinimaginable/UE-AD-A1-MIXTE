@@ -57,7 +57,7 @@ def get_schedule_by_date(date):
         # Connexion au service Schedule via gRPC
         with grpc.insecure_channel(SCHEDULE_SERVICE_URL) as channel:
             stub = schedule_pb2_grpc.ScheduleStub(channel)
-            request = schedule_pb2.GetByDateRequest(date=date)
+            request = schedule_pb2.Date(date=date)
             response = stub.GetByDate(request)
             
             # Retourner un format compatible avec le code existant

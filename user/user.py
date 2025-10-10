@@ -6,12 +6,12 @@ app = Flask(__name__)
 
 PORT = 3203
 
-with open('{}/databases/users.json'.format("."), "r") as jsf:
+with open('{}/data/users.json'.format("."), "r") as jsf:
     users = json.load(jsf)["users"]
 
 
 def write_users_to_file(data):
-    with open('{}/databases/users.json'.format("."), "w") as jsf:
+    with open('{}/data/users.json'.format("."), "w") as jsf:
         json.dump({"users": data}, jsf, indent=4)
 
 
