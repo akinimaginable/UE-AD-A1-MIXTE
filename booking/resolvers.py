@@ -60,11 +60,12 @@ def get_schedule_by_date(date):
             request = schedule_pb2.Date(date=date)
             response = stub.GetByDate(request)
             
-            # Retourner un format compatible avec le code existant
-            if response.movies:
+            # Le proto retourne maintenant une liste, on prend le premier élément s'il existe
+            if response.list and len(response.list) > 0:
+                day_schedule = response.list[0]
                 return {
-                    "date": response.date,
-                    "movies": list(response.movies)
+                    "date": day_schedule.date,
+                    "movies": list(day_schedule.movies)
                 }
             return None
     except grpc.RpcError as e:
