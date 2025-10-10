@@ -1,5 +1,4 @@
-from ariadne import graphql_sync, make_executable_schema, load_schema_from_path, ObjectType, QueryType, MutationType
-from ariadne.constants import PLAYGROUND_HTML
+from ariadne import graphql_sync, make_executable_schema, load_schema_from_path, QueryType, MutationType
 from flask import Flask, request, jsonify, make_response
 
 import resolvers as r
@@ -48,11 +47,6 @@ schema = make_executable_schema(type_defs, query, mutation)
 @app.route("/", methods=['GET'])
 def home():
     return make_response("<h1 style='color:blue'>Welcome to the Movie GraphQL service!</h1>", 200)
-
-# Interface GraphQL Playground (pour tester dans le navigateur)
-@app.route('/graphql', methods=['GET'])
-def graphql_playground():
-    return PLAYGROUND_HTML, 200
 
 # Point d'entrée GraphQL
 @app.route('/graphql', methods=['POST'])

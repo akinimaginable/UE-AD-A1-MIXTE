@@ -1,0 +1,163 @@
+openapi: 3.1.1
+
+info:
+  title: Movie API
+  summary: This is the API of the Movie service
+  description: This is the API of the Movie service, it should be much much much much much much much much much much much much much much much much much much much much much longer
+  contact:
+    name: Helene Coullon
+    url: https://helene-coullon.fr/
+    email: helene.coullon@imt-atlantique.fr
+
+tags:
+  - name: admins
+    description: Secured Admin-only calls
+  - name: developers
+    description: Operations available to regular developers
+
+paths:
+  /:
+    get:
+      tags:
+        - developers
+      summary: home page of the service
+      operationId: home
+      description: |
+        Nothing to do
+      responses:
+        '200':
+          description: welcome message
+          content:
+            text/html:
+              schema:
+                type: string
+                example: "<h1 style='color:blue'>Welcome to the Movie service!</h1>"
+
+  /json:
+    get:
+      tags:
+        - developers
+      summary: get the full JSON database
+      operationId: get_json
+      description: |
+        Nothing to do
+      responses:
+        '200':
+          description: full JSON
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllMovies'
+
+  /movies/{movieid}:
+    get:
+      tags:
+        - developers
+      summary: get the movie by its id
+      operationId: get_movie_byid
+      description: By passing in the appropriate options, you can get info of a Movie
+      parameters:
+        - name: movieid
+          in: path
+          required: true
+          description: Movie ID.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Movie description
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MovieItem'
+        '400':
+          description: bad input parameter
+
+    post:
+      tags:
+        - admins
+      summary: add a movie item
+      operationId: create_movie
+      description: Adds a movie to the system
+      parameters:
+        - name: movieid
+          in: path
+          required: true
+          description: Movie ID.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Movie created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MovieItem'
+        '409':
+          description: an existing item already exists
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MovieItem'
+        description: Inventory item to add
+
+  /titles:
+    get:
+      tags:
+        - developers
+      summary: get the movie by its title
+      operationId: get_movie_bytitle
+      description: |
+        By passing in the appropriate options, you can get Movie info
+      parameters:
+        - in: query
+          name: title
+          description: pass a title
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Movie item
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MovieItem'
+        '400':
+          description: bad input parameter
+
+components:
+  schemas:
+    AllMovies:
+      type: object
+      required:
+        - movies
+      properties:
+        movies:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/MovieItem'
+
+    MovieItem:
+      type: object
+      required:
+        - title
+        - rating
+        - director
+        - id
+      properties:
+        title:
+          type: string
+          example: The Martian
+        rating:
+          type: number
+          example: 7.4
+        director:
+          type: string
+          example: Paul McGuigan
+        id:
+          type: string
+          example: 39ab85e5-5e8e-4dc5-afea-65dc368bd7ab
+
