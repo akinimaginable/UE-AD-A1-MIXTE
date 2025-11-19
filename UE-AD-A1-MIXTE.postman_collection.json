@@ -1,494 +1,284 @@
 {
-	"info": {
-		"_postman_id": "ue-ad-a1-mixte-collection",
-		"name": "UE-AD-A1-MIXTE API Collection",
-		"description": "Collection complète pour tester les microservices User (REST), Movie (GraphQL), Booking (GraphQL) et Schedule (gRPC)",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "User Service (REST)",
-			"item": [
-				{
-					"name": "Home",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3203/",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3203",
-							"path": [""]
-						}
-					}
-				},
-				{
-					"name": "Get All Users",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3203/users",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3203",
-							"path": ["users"]
-						}
-					}
-				},
-				{
-					"name": "Get User By ID",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3203/users/chris_rivers",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3203",
-							"path": ["users", "chris_rivers"]
-						}
-					}
-				},
-				{
-					"name": "Get Admin Users",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3203/users/admin",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3203",
-							"path": ["users", "admin"]
-						}
-					}
-				},
-				{
-					"name": "Create User",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"id\": \"new_user_id\",\n  \"name\": \"New User\",\n  \"last_active\": 1234567890,\n  \"role\": \"user\"\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3203/users",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3203",
-							"path": ["users"]
-						}
-					}
-				},
-				{
-					"name": "Update User",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"name\": \"Updated Name\",\n  \"role\": \"admin\"\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3203/users/chris_rivers",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3203",
-							"path": ["users", "chris_rivers"]
-						}
-					}
-				},
-				{
-					"name": "Delete User",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3203/users/new_user_id",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3203",
-							"path": ["users", "new_user_id"]
-						}
-					}
-				}
-			]
-		},
-		{
-			"name": "Movie Service (GraphQL)",
-			"item": [
-				{
-					"name": "Home",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3001/",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3001",
-							"path": [""]
-						}
-					}
-				},
-				{
-					"name": "GraphQL Playground",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3001/graphql",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3001",
-							"path": ["graphql"]
-						}
-					}
-				},
-				{
-					"name": "Query - Get All Movies",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"query\": \"query { all_movies { id title rating director } }\"\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3001/graphql",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3001",
-							"path": ["graphql"]
-						}
-					}
-				},
-				{
-					"name": "Query - Get Movie By ID",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"query\": \"query { movie_by_id(id: \\\"720d006c-3a57-4b6a-b18f-9b713b073f3c\\\") { id title rating director } }\"\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3001/graphql",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3001",
-							"path": ["graphql"]
-						}
-					}
-				},
-				{
-					"name": "Query - Get Movie By Title",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"query\": \"query { movie_by_title(title: \\\"The Martian\\\") { id title rating director } }\"\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3001/graphql",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3001",
-							"path": ["graphql"]
-						}
-					}
-				},
-				{
-					"name": "Mutation - Add Movie (Admin)",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"query\": \"mutation { add_movie(movie: { id: \\\"new-movie-id\\\", title: \\\"New Movie\\\", rating: 8.5, director: \\\"Director Name\\\", author: \\\"admin_user_id\\\" }) { message movie { id title rating director } } }\"\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3001/graphql",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3001",
-							"path": ["graphql"]
-						}
-					}
-				},
-				{
-					"name": "Mutation - Update Movie Rating (Admin)",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"query\": \"mutation { update_movie_rating(id: \\\"720d006c-3a57-4b6a-b18f-9b713b073f3c\\\", rating: 9.0, author: \\\"admin_user_id\\\") { message movie { id title rating } } }\"\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3001/graphql",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3001",
-							"path": ["graphql"]
-						}
-					}
-				},
-				{
-					"name": "Mutation - Delete Movie (Admin)",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"query\": \"mutation { delete_movie(id: \\\"new-movie-id\\\", author: \\\"admin_user_id\\\") { message movie { id title } } }\"\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3001/graphql",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3001",
-							"path": ["graphql"]
-						}
-					}
-				}
-			]
-		},
-		{
-			"name": "Booking Service (GraphQL)",
-			"item": [
-				{
-					"name": "Home",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3201/",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3201",
-							"path": [""]
-						}
-					}
-				},
-				{
-					"name": "GraphQL Playground",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3201/graphql",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3201",
-							"path": ["graphql"]
-						}
-					}
-				},
-				{
-					"name": "Query - Get All Bookings (Admin)",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"query\": \"query { all_bookings(userid: \\\"admin_user_id\\\") { userid dates { date movies } } }\"\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3201/graphql",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3201",
-							"path": ["graphql"]
-						}
-					}
-				},
-				{
-					"name": "Query - Get User Bookings",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"query\": \"query { bookings_by_user(userid: \\\"chris_rivers\\\") { userid dates { date movies } } }\"\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3201/graphql",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3201",
-							"path": ["graphql"]
-						}
-					}
-				},
-				{
-					"name": "Query - Get Detailed User Bookings",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"query\": \"query { detailed_bookings_by_user(userid: \\\"chris_rivers\\\") { userid bookings { date movies { movie { id title rating director } schedule { date movies } } } } }\"\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3201/graphql",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3201",
-							"path": ["graphql"]
-						}
-					}
-				},
-				{
-					"name": "Mutation - Create Booking",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"query\": \"mutation { create_booking(input: { userid: \\\"chris_rivers\\\", movieid: \\\"267eedb8-0f5d-42d5-8f43-72426b9fb3e6\\\", date: \\\"20151203\\\" }) { message booking { userid movieid date } } }\"\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3201/graphql",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3201",
-							"path": ["graphql"]
-						}
-					}
-				},
-				{
-					"name": "Mutation - Delete Specific Booking",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"query\": \"mutation { delete_booking(userid: \\\"chris_rivers\\\", movieid: \\\"267eedb8-0f5d-42d5-8f43-72426b9fb3e6\\\", date: \\\"20151203\\\") { message } }\"\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3201/graphql",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3201",
-							"path": ["graphql"]
-						}
-					}
-				},
-				{
-					"name": "Mutation - Delete All User Bookings",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"query\": \"mutation { delete_all_user_bookings(userid: \\\"test_user\\\") { message } }\"\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3201/graphql",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3201",
-							"path": ["graphql"]
-						}
-					}
-				}
-			]
-		},
-		{
-			"name": "Schedule Service (gRPC)",
-			"item": [
-				{
-					"name": "Note - gRPC Testing",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3002/",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3002",
-							"path": [""]
-						},
-						"description": "⚠️ Le service Schedule utilise gRPC (port 3002). Postman ne supporte pas nativement gRPC.\n\nPour tester gRPC, utilisez:\n1. grpcurl (CLI): grpcurl -plaintext localhost:3002 list\n2. Postman (avec gRPC support dans versions récentes)\n3. BloomRPC (GUI client)\n4. Python client avec grpc\n\nExemple Python:\n```python\nimport grpc\nimport schedule_pb2\nimport schedule_pb2_grpc\n\nchannel = grpc.insecure_channel('localhost:3002')\nstub = schedule_pb2_grpc.ScheduleStub(channel)\nrequest = schedule_pb2.ScheduleRequest(movieid='xxx', date='20151201')\nresponse = stub.GetSchedule(request)\n```"
-					}
-				}
-			]
-		}
-	]
+  "info": {
+    "_postman_id": "e6c9c4c5-oral-demo-collection",
+    "name": "UE-AD-A1-MIXTE - Collection Complète",
+    "description": "Collection Postman couvrant tous les services (User REST, Movie & Booking GraphQL, Schedule gRPC) + scénarios de démo prêts pour l'oral.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "🎬 DÉMO ORAL - Scénario Utilisateur",
+      "description": "1. Créer une réservation (Movie + Schedule + MongoDB)\n2. Consulter les réservations détaillées (enrichissement Movie + Schedule)",
+      "item": [
+        {
+          "name": "1️⃣ Créer une réservation",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"mutation { create_booking(input: { userid: \\\"peter_curley\\\", movieid: \\\"720d006c-3a57-4b6a-b18f-9b713b073f3c\\\", date: \\\"20151203\\\" }) { message booking { userid movieid date } } }\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3201/graphql",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3201",
+              "path": ["graphql"]
+            },
+            "description": "Booking vérifie Movie (GraphQL) + Schedule (gRPC) puis écrit dans MongoDB."
+          }
+        },
+        {
+          "name": "2️⃣ Voir réservations détaillées",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"query { detailed_bookings_by_user(userid: \\\"peter_curley\\\") { userid bookings { date movies { movie { id title rating director } schedule { date movies } } } } }\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3201/graphql",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3201",
+              "path": ["graphql"]
+            },
+            "description": "Retourne chaque réservation enrichie avec les détails Movie + Schedule."
+          }
+        }
+      ]
+    },
+    {
+      "name": "👑 DÉMO ORAL - Scénario Administrateur",
+      "description": "1. Voir toutes les réservations (admin)\n2. Mettre à jour un film (admin)\n3. Ajouter un film avec ID unique (admin)\n4. Montre l'erreur d'un non-admin",
+      "item": [
+        {
+          "name": "1️⃣ Voir toutes les réservations (admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"query { all_bookings(userid: \\\"chris_rivers\\\") { userid dates { date movies } } }\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3201/graphql",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3201",
+              "path": ["graphql"]
+            },
+            "description": "Booking vérifie le rôle admin via User (REST) avant de retourner toutes les réservations."
+          }
+        },
+        {
+          "name": "2️⃣ Mettre à jour la note d'un film (admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"mutation { update_movie_rating(id: \\\"267eedb8-0f5d-42d5-8f43-72426b9fb3e6\\\", rating: 9.1, author: \\\"chris_rivers\\\") { message movie { id title rating } } }\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/graphql",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["graphql"]
+            },
+            "description": "Movie appelle User (REST) pour vérifier les droits admin avant d'écrire dans MongoDB."
+          }
+        },
+        {
+          "name": "3️⃣ Ajouter un film (admin, ID unique)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"mutation { add_movie(movie: { id: \\\"demo-movie-{{timestamp}}\\\", title: \\\"Nouveau Film Demo\\\", rating: 8.5, director: \\\"Realisateur Demo\\\", author: \\\"chris_rivers\\\" }) { message movie { id title rating director } } }\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/graphql",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["graphql"]
+            },
+            "description": "Utilise {{timestamp}} pour éviter les collisions d'ID lors de démonstrations répétées."
+          }
+        },
+        {
+          "name": "4️⃣ Ajouter un film (non-admin) → erreur attendue",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"mutation { add_movie(movie: { id: \\\"demo-movie-non-admin\\\", title: \\\"Film Non Autorisé\\\", rating: 5.0, director: \\\"Test\\\", author: \\\"garret_heaton\\\" }) { message movie { id title } } }\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/graphql",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["graphql"]
+            },
+            "description": "Doit retourner « Accès refusé, administrateur requis »."
+          }
+        }
+      ]
+    },
+    {
+      "name": "User Service (REST)",
+      "description": "API Flask exposant les utilisateurs stockés dans MongoDB (port 3203).",
+      "item": [
+        {
+          "name": "GET / (home)",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:3203/"
+          }
+        },
+        {
+          "name": "GET /users",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:3203/users",
+            "description": "Liste tous les utilisateurs."
+          }
+        },
+        {
+          "name": "GET /users/{id}",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:3203/users/chris_rivers",
+            "description": "Exemple avec un administrateur."
+          }
+        },
+        {
+          "name": "GET /users/admin",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:3203/users/admin",
+            "description": "Filtre uniquement les comptes avec rôle « admin »."
+          }
+        },
+        {
+          "name": "POST /users",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"demo_user\",\n  \"name\": \"Utilisateur Démo\",\n  \"last_active\": 1360032000,\n  \"role\": \"user\"\n}"
+            },
+            "url": "http://localhost:3203/users",
+            "description": "Ajoute un utilisateur test dans MongoDB (contrôles côté API)."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Movie Service (GraphQL)",
+      "description": "Service Ariadne (port 3001) exposant les films.",
+      "item": [
+        {
+          "name": "Home",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:3001/"
+          }
+        },
+        {
+          "name": "Query - all_movies",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"query { all_movies { id title rating director } }\"\n}"
+            },
+            "url": "http://localhost:3001/graphql"
+          }
+        },
+        {
+          "name": "Query - movie_by_id (Creed)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"query { movie_by_id(id: \\\"267eedb8-0f5d-42d5-8f43-72426b9fb3e6\\\") { id title rating director } }\"\n}"
+            },
+            "url": "http://localhost:3001/graphql"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Booking Service (GraphQL)",
+      "description": "Service Ariadne (port 3201) orchestrant Movie + Schedule + User.",
+      "item": [
+        {
+          "name": "Home",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:3201/"
+          }
+        },
+        {
+          "name": "Query - bookings_by_user (chris_rivers)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"query { bookings_by_user(userid: \\\"chris_rivers\\\") { userid dates { date movies } } }\"\n}"
+            },
+            "url": "http://localhost:3201/graphql"
+          }
+        }
+      ]
+    },
+    {
+      "name": "📡 Schedule Service (gRPC)",
+      "description": "Le service gRPC `schedule.Schedule` écoute sur `localhost:3002`.",
+      "item": [
+        {
+          "name": "Guide - GetByDate (Postman ou grpcurl)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:3002/",
+            "description": "Postman gRPC :\n1. New > gRPC Request\n2. Host : `localhost:3002`\n3. Importez `schedule.proto`\n4. Sélectionnez `schedule.Schedule/GetByDate`\n5. Payload exemple : `{ \\\"date\\\": \\\"20151201\\\" }`\n\nAlternative CLI : `grpcurl -plaintext -d '{\\\"date\\\":\\\"20151201\\\"}' localhost:3002 schedule.Schedule/GetByDate`\n(Réponse : un `DayScheduleList` listant les films programmés)."
+          }
+        }
+      ]
+    }
+  ]
 }
 

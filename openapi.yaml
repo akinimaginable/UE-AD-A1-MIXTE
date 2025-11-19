@@ -1,0 +1,222 @@
+openapi: 3.0.3
+info:
+  title: UE-AD-A1-MIXTE
+  version: "1.0.0"
+  description: >
+    Spécification OpenAPI couvrant l'ensemble des points d'entrée REST/HTTP
+    du TP MIXTE. Les services Movie et Booking exposent une unique route
+    GraphQL (`/graphql`) tandis que le service User expose des routes REST
+    classiques. Toutes les opérations persistent leurs données dans MongoDB.
+servers:
+  - url: http://localhost
+paths:
+  /users:
+    get:
+      summary: Lister tous les utilisateurs
+      description: Retourne la collection `users` stockée dans MongoDB.
+      responses:
+        "200":
+          description: Liste des utilisateurs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+    post:
+      summary: Créer un utilisateur
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+            example:
+              id: new_user
+              name: Nouvel Utilisateur
+              last_active: 1360032000
+              role: user
+      responses:
+        "201":
+          description: Utilisateur créé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+  /users/{userid}:
+    parameters:
+      - $ref: "#/components/parameters/UserId"
+    get:
+      summary: Récupérer un utilisateur par ID
+      responses:
+        "200":
+          description: Utilisateur trouvé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "404":
+          description: Utilisateur introuvable
+    put:
+      summary: Mettre à jour un utilisateur
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserPartial"
+      responses:
+        "200":
+          description: Utilisateur mis à jour
+    delete:
+      summary: Supprimer un utilisateur
+      responses:
+        "200":
+          description: Suppression confirmée
+  /users/admin:
+    get:
+      summary: Lister les administrateurs
+      responses:
+        "200":
+          description: Administrateurs trouvés
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+        "204":
+          description: Aucun administrateur
+  /movie/graphql:
+    post:
+      summary: Point d'entrée GraphQL du service Movie
+      description: >
+        Accepte n'importe quelle requête/mutation définie dans `movie.graphql`
+        (ex: `all_movies`, `add_movie`, `delete_movie`, etc.).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GraphQLRequest"
+            example:
+              query: |
+                mutation {
+                  add_movie(
+                    movie: {
+                      id: "demo-movie-oral-2025"
+                      title: "Nouveau Film Demo"
+                      rating: 8.5
+                      director: "Realisateur Demo"
+                      author: "chris_rivers"
+                    }
+                  ) {
+                    message
+                    movie { id title rating }
+                  }
+                }
+      responses:
+        "200":
+          description: Réponse GraphQL
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GraphQLResponse"
+  /booking/graphql:
+    post:
+      summary: Point d'entrée GraphQL du service Booking
+      description: >
+        Accepte n'importe quelle requête/mutation définie dans `booking.graphql`
+        (ex: `detailed_bookings_by_user`, `create_booking`, `delete_booking`, etc.).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GraphQLRequest"
+            example:
+              query: |
+                mutation {
+                  create_booking(
+                    input: {
+                      userid: "peter_curley"
+                      movieid: "720d006c-3a57-4b6a-b18f-9b713b073f3c"
+                      date: "20151203"
+                    }
+                  ) {
+                    message
+                    booking { userid movieid date }
+                  }
+                }
+      responses:
+        "200":
+          description: Réponse GraphQL
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GraphQLResponse"
+components:
+  parameters:
+    UserId:
+      name: userid
+      in: path
+      required: true
+      schema:
+        type: string
+      example: chris_rivers
+  schemas:
+    User:
+      type: object
+      required: [id, name, last_active, role]
+      properties:
+        id:
+          type: string
+          example: chris_rivers
+        name:
+          type: string
+          example: Chris Rivers
+        last_active:
+          type: integer
+          example: 1360031010
+        role:
+          type: string
+          enum: [admin, user]
+    UserPartial:
+      type: object
+      description: Champs modifiables lors d'un PUT /users/{id}
+      properties:
+        name:
+          type: string
+        last_active:
+          type: integer
+        role:
+          type: string
+          enum: [admin, user]
+    GraphQLRequest:
+      type: object
+      required: [query]
+      properties:
+        query:
+          type: string
+          description: Document GraphQL sérialisé
+        variables:
+          type: object
+          additionalProperties: true
+    GraphQLResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          additionalProperties: true
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+              path:
+                type: array
+                items:
+                  type: string
+

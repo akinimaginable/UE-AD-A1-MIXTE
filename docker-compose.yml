@@ -1,32 +1,4 @@
 services:
-  booking:
-    build:
-      context: .
-      dockerfile: ./booking/Dockerfile
-    ports:
-      - "3201:3201"
-
-  movie:
-    build:
-      context: .
-      dockerfile: ./movie/Dockerfile
-    ports:
-      - "3001:3001"
-
-  schedule:
-    build:
-      context: .
-      dockerfile: ./schedule/Dockerfile
-    ports:
-      - "3002:3002"
-
-  user:
-    build:
-      context: .
-      dockerfile: ./user/Dockerfile
-    ports:
-      - "3203:3203"
-
   db:
     image: mongo:8.0.15-noble
     restart: always
@@ -35,3 +7,67 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: "root"
       MONGO_INITDB_ROOT_PASSWORD: "*65%8XPuGaQ#"
+    volumes:
+      - mongo_data:/data/db
+
+  mongo-express:
+    image: mongo-express:latest
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: "root"
+      ME_CONFIG_MONGODB_ADMINPASSWORD: "*65%8XPuGaQ#"
+      ME_CONFIG_MONGODB_URL: "mongodb://root:%2A65%258XPuGaQ%23@db:27017/"
+    depends_on:
+      - db
+
+  movie:
+    build:
+      context: .
+      dockerfile: ./movie/Dockerfile
+    ports:
+      - "3001:3001"
+    depends_on:
+      - db
+    environment:
+      MONGO_URL: "mongodb://root:%2A65%258XPuGaQ%23@db:27017/"
+
+  booking:
+    build:
+      context: .
+      dockerfile: ./booking/Dockerfile
+    ports:
+      - "3201:3201"
+    depends_on:
+      - db
+      - movie
+      - schedule
+      - user
+    environment:
+      MONGO_URL: "mongodb://root:%2A65%258XPuGaQ%23@db:27017/"
+
+  schedule:
+    build:
+      context: .
+      dockerfile: ./schedule/Dockerfile
+    ports:
+      - "3002:3002"
+    depends_on:
+      - db
+    environment:
+      MONGO_URL: "mongodb://root:%2A65%258XPuGaQ%23@db:27017/"
+
+  user:
+    build:
+      context: .
+      dockerfile: ./user/Dockerfile
+    ports:
+      - "3203:3203"
+    depends_on:
+      - db
+    environment:
+      MONGO_URL: "mongodb://root:%2A65%258XPuGaQ%23@db:27017/"
+
+volumes:
+  mongo_data:

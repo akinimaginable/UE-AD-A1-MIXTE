@@ -1,0 +1,866 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2025-01-20T00:00:00.000Z",
+  "__export_source": "insomnia.desktop.app:v2023.5.8",
+  "resources": [
+    {
+      "_id": "req_user_home",
+      "parentId": "fld_user_service",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "url": "http://localhost:3203/",
+      "name": "Home",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1705708800000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_user_get_all",
+      "parentId": "fld_user_service",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "url": "http://localhost:3203/users",
+      "name": "Get All Users",
+      "description": "Récupère tous les utilisateurs",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1705708799000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_user_get_by_id",
+      "parentId": "fld_user_service",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "url": "http://localhost:3203/users/chris_rivers",
+      "name": "Get User By ID",
+      "description": "Récupère un utilisateur par son ID",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1705708798000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_user_get_admin",
+      "parentId": "fld_user_service",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "url": "http://localhost:3203/users/admin",
+      "name": "Get Admin Users",
+      "description": "Récupère tous les utilisateurs administrateurs",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1705708797000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_user_create",
+      "parentId": "fld_user_service",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "url": "http://localhost:3203/users",
+      "name": "Create User",
+      "description": "Crée un nouvel utilisateur",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"id\": \"new_user_id\",\n  \"name\": \"New User\",\n  \"last_active\": 1234567890,\n  \"role\": \"user\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1705708796000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_movie_home",
+      "parentId": "fld_movie_service",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "url": "http://localhost:3001/",
+      "name": "Home",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1705708795000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_movie_all",
+      "parentId": "fld_movie_service",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "url": "http://localhost:3001/graphql",
+      "name": "Query - Get All Movies",
+      "description": "Récupère tous les films",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"query\": \"query { all_movies { id title rating director } }\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1705708794000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_movie_by_id",
+      "parentId": "fld_movie_service",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "url": "http://localhost:3001/graphql",
+      "name": "Query - Get Movie By ID",
+      "description": "Récupère un film par son ID\n\nFilm: Creed (267eedb8-0f5d-42d5-8f43-72426b9fb3e6)\n\n✅ PRÊT À ENVOYER - Données valides pré-remplies",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"query\": \"query { movie_by_id(id: \\\"267eedb8-0f5d-42d5-8f43-72426b9fb3e6\\\") { id title rating director } }\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1705708793000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_movie_by_title",
+      "parentId": "fld_movie_service",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "url": "http://localhost:3001/graphql",
+      "name": "Query - Get Movie By Title",
+      "description": "Récupère un film par son titre\n\nTitre: Creed\n\n✅ PRÊT À ENVOYER - Données valides pré-remplies",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"query\": \"query { movie_by_title(title: \\\"Creed\\\") { id title rating director } }\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1705708792000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_movie_add_admin",
+      "parentId": "fld_movie_service",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "url": "http://localhost:3001/graphql",
+      "name": "Mutation - Add Movie (Admin) - ROUTE COMPLEXE",
+      "description": "⚠️ ROUTE COMPLEXE POUR L'ORAL\n\nAppelle User (REST) pour vérifier les droits admin, puis MongoDB pour ajouter le film.\n\nUtilise chris_rivers (admin) comme author.",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"query\": \"mutation { add_movie(movie: { id: \\\"demo-movie-oral-2025\\\", title: \\\"Nouveau Film Demo\\\", rating: 8.5, director: \\\"Realisateur Demo\\\", author: \\\"chris_rivers\\\" }) { message movie { id title rating director } } }\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1705708791000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_movie_add_non_admin",
+      "parentId": "fld_movie_service",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "url": "http://localhost:3001/graphql",
+      "name": "Mutation - Add Movie (Non-Admin) - Test Erreur",
+      "description": "Test avec un utilisateur non-admin pour montrer l'erreur de sécurité",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"query\": \"mutation { add_movie(movie: { id: \\\"test-movie-456\\\", title: \\\"Film Non Autorisé\\\", rating: 5.0, director: \\\"Test\\\", author: \\\"garret_heaton\\\" }) { message movie { id title } } }\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1705708790000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_movie_update_rating",
+      "parentId": "fld_movie_service",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "url": "http://localhost:3001/graphql",
+      "name": "Mutation - Update Movie Rating (Admin)",
+      "description": "Met à jour la note d'un film (admin requis)\n\nFilm: Creed (267eedb8-0f5d-42d5-8f43-72426b9fb3e6)\nNouvelle note: 9.0\nAdmin: chris_rivers\n\n✅ PRÊT À ENVOYER - Données valides pré-remplies",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"query\": \"mutation { update_movie_rating(id: \\\"267eedb8-0f5d-42d5-8f43-72426b9fb3e6\\\", rating: 9.0, author: \\\"chris_rivers\\\") { message movie { id title rating } } }\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1705708789000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_movie_delete",
+      "parentId": "fld_movie_service",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "url": "http://localhost:3001/graphql",
+      "name": "Mutation - Delete Movie (Admin)",
+      "description": "Supprime un film (admin requis)",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"query\": \"mutation { delete_movie(id: \\\"demo-movie-oral-2025\\\", author: \\\"chris_rivers\\\") { message movie { id title } } }\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1705708788000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_booking_home",
+      "parentId": "fld_booking_service",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "url": "http://localhost:3201/",
+      "name": "Home",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1705708787000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_booking_all_admin",
+      "parentId": "fld_booking_service",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "url": "http://localhost:3201/graphql",
+      "name": "Query - All Bookings (Admin) - ROUTE COMPLEXE",
+      "description": "⚠️ ROUTE COMPLEXE POUR L'ORAL\n\nAppelle User (REST) pour vérifier les droits admin, puis MongoDB pour récupérer toutes les réservations.\n\nUtilise chris_rivers (admin).",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"query\": \"query { all_bookings(userid: \\\"chris_rivers\\\") { userid dates { date movies } } }\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1705708786000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_booking_all_non_admin",
+      "parentId": "fld_booking_service",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "url": "http://localhost:3201/graphql",
+      "name": "Query - All Bookings (Non-Admin) - Test Erreur",
+      "description": "Test avec un utilisateur non-admin pour montrer l'erreur d'accès refusé",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"query\": \"query { all_bookings(userid: \\\"garret_heaton\\\") { userid dates { date movies } } }\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1705708785000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_booking_by_user",
+      "parentId": "fld_booking_service",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "url": "http://localhost:3201/graphql",
+      "name": "Query - Get User Bookings",
+      "description": "Récupère les réservations d'un utilisateur\n\nUtilisateur: chris_rivers (a déjà des réservations)\n\n✅ PRÊT À ENVOYER - Données valides pré-remplies",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"query\": \"query { bookings_by_user(userid: \\\"chris_rivers\\\") { userid dates { date movies } } }\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1705708784000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_booking_detailed",
+      "parentId": "fld_booking_service",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "url": "http://localhost:3201/graphql",
+      "name": "Query - Detailed Bookings - ROUTE COMPLEXE",
+      "description": "⚠️ ROUTE COMPLEXE POUR L'ORAL\n\nAppelle:\n1. MongoDB pour récupérer les réservations\n2. Movie (GraphQL) pour chaque film réservé\n3. Schedule (gRPC) pour chaque date\n\nCombine toutes les données pour retourner un résultat enrichi.\n\nUtilisateur: chris_rivers (a déjà des réservations)\n\n✅ PRÊT À ENVOYER - Données valides pré-remplies",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"query\": \"query { detailed_bookings_by_user(userid: \\\"chris_rivers\\\") { userid bookings { date movies { movie { id title rating director } schedule { date movies } } } } }\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1705708783000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_booking_create",
+      "parentId": "fld_booking_service",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "url": "http://localhost:3201/graphql",
+      "name": "Mutation - Create Booking - ROUTE COMPLEXE",
+      "description": "⚠️ ROUTE COMPLEXE POUR L'ORAL\n\nAppelle:\n1. Movie (GraphQL) pour vérifier que le film existe\n2. Schedule (gRPC) pour vérifier que le film est programmé\n3. MongoDB pour créer la réservation\n\nFilm ID: 720d006c-3a57-4b6a-b18f-9b713b073f3c (The Good Dinosaur)\nDate: 20151203 (film programmé)\nUtilisateur: peter_curley (pas encore de réservation)\n\n✅ PRÊT À ENVOYER - Données valides pré-remplies",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"query\": \"mutation { create_booking(input: { userid: \\\"peter_curley\\\", movieid: \\\"720d006c-3a57-4b6a-b18f-9b713b073f3c\\\", date: \\\"20151203\\\" }) { message booking { userid movieid date } } }\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1705708782000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_booking_delete",
+      "parentId": "fld_booking_service",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "url": "http://localhost:3201/graphql",
+      "name": "Mutation - Delete Booking",
+      "description": "Supprime une réservation spécifique\n\nUtilisateur: garret_heaton\nFilm: Victor Frankenstein (7daf7208-be4d-4944-a3ae-c1c2f516f3e6)\nDate: 20151201\n\n✅ PRÊT À ENVOYER - Données valides pré-remplies",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"query\": \"mutation { delete_booking(userid: \\\"garret_heaton\\\", movieid: \\\"7daf7208-be4d-4944-a3ae-c1c2f516f3e6\\\", date: \\\"20151201\\\") { message } }\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1705708781000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_booking_delete_all",
+      "parentId": "fld_booking_service",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "url": "http://localhost:3201/graphql",
+      "name": "Mutation - Delete All User Bookings",
+      "description": "Supprime toutes les réservations d'un utilisateur",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"query\": \"mutation { delete_all_user_bookings(userid: \\\"test_user\\\") { message } }\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1705708780000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_demo_user_create",
+      "parentId": "fld_demo_user",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "url": "http://localhost:3201/graphql",
+      "name": "1. Créer une réservation - ROUTE COMPLEXE",
+      "description": "⚠️ SCÉNARIO UTILISATEUR - ÉTAPE 1\n\nRoute complexe qui appelle:\n1. Movie (GraphQL) pour vérifier que le film existe\n2. Schedule (gRPC) pour vérifier que le film est programmé\n3. MongoDB pour créer la réservation\n\nUtilisateur: peter_curley (user)\nFilm: The Good Dinosaur (720d006c-3a57-4b6a-b18f-9b713b073f3c) - programmé le 20151203\nDate: 20151203\n\n✅ PRÊT À ENVOYER - Données valides pré-remplies (pas de conflit)",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"query\": \"mutation { create_booking(input: { userid: \\\"peter_curley\\\", movieid: \\\"720d006c-3a57-4b6a-b18f-9b713b073f3c\\\", date: \\\"20151203\\\" }) { message booking { userid movieid date } } }\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1705708900000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_demo_user_detailed",
+      "parentId": "fld_demo_user",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "url": "http://localhost:3201/graphql",
+      "name": "2. Voir réservations détaillées - ROUTE COMPLEXE",
+      "description": "⚠️ SCÉNARIO UTILISATEUR - ÉTAPE 2\n\nRoute complexe qui appelle:\n1. MongoDB pour récupérer les réservations\n2. Movie (GraphQL) pour chaque film réservé (détails)\n3. Schedule (gRPC) pour chaque date (planning)\n\nCombine toutes les données pour retourner un résultat enrichi.\n\nUtilisateur: peter_curley (vient de créer une réservation à l'étape 1)\n\n✅ PRÊT À ENVOYER - Données valides pré-remplies",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"query\": \"query { detailed_bookings_by_user(userid: \\\"peter_curley\\\") { userid bookings { date movies { movie { id title rating director } schedule { date movies } } } } }\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1705708899000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_demo_admin_all_bookings",
+      "parentId": "fld_demo_admin",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "url": "http://localhost:3201/graphql",
+      "name": "1. Voir toutes les réservations - ROUTE COMPLEXE",
+      "description": "⚠️ SCÉNARIO ADMINISTRATEUR - ÉTAPE 1\n\nRoute complexe qui appelle:\n1. User (REST) pour vérifier les droits admin\n2. MongoDB pour récupérer toutes les réservations\n\nUtilisateur: chris_rivers (admin)\n\n✅ PRÊT À ENVOYER - Données valides pré-remplies",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"query\": \"query { all_bookings(userid: \\\"chris_rivers\\\") { userid dates { date movies } } }\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1705708898000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_demo_admin_add_movie",
+      "parentId": "fld_demo_admin",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "url": "http://localhost:3001/graphql",
+      "name": "2. Ajouter un film - ROUTE COMPLEXE",
+      "description": "⚠️ SCÉNARIO ADMINISTRATEUR - ÉTAPE 2\n\nRoute complexe qui appelle:\n1. User (REST) pour vérifier les droits admin\n2. MongoDB pour ajouter le film\n\nUtilisateur: chris_rivers (admin)\nFilm ID unique généré pour éviter les conflits\n\n✅ PRÊT À ENVOYER - Données valides pré-remplies",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"query\": \"mutation { add_movie(movie: { id: \\\"demo-movie-oral-2025\\\", title: \\\"Nouveau Film Demo\\\", rating: 8.5, director: \\\"Realisateur Demo\\\", author: \\\"chris_rivers\\\" }) { message movie { id title rating director } } }\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1705708897000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_demo_admin_error",
+      "parentId": "fld_demo_admin",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "url": "http://localhost:3001/graphql",
+      "name": "3. Test avec non-admin (erreur attendue)",
+      "description": "⚠️ SCÉNARIO ADMINISTRATEUR - ÉTAPE 3\n\nMontre que les non-admins sont rejetés.\n\nUtilisateur: garret_heaton (user) - doit retourner une erreur\n\n✅ PRÊT À ENVOYER - Doit retourner une erreur (comportement attendu)",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"query\": \"mutation { add_movie(movie: { id: \\\"demo-movie-non-admin\\\", title: \\\"Film Non Autorisé\\\", rating: 5.0, director: \\\"Test\\\", author: \\\"garret_heaton\\\" }) { message movie { id title } } }\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1705708896000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_demo_user",
+      "parentId": "wrk_main",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "name": "🎬 DÉMO ORAL - Scénario Utilisateur",
+      "description": "Scénario logique d'utilisation des API pour un utilisateur\n\nOrdre d'exécution:\n1. Créer une réservation (route complexe)\n2. Voir réservations détaillées (route complexe)\n\nCes routes montrent les appels inter-services (Movie, Schedule, MongoDB).",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1705708900000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_demo_admin",
+      "parentId": "wrk_main",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "name": "👑 DÉMO ORAL - Scénario Administrateur",
+      "description": "Scénario logique d'utilisation des API pour un administrateur\n\nOrdre d'exécution:\n1. Voir toutes les réservations (route complexe)\n2. Ajouter un film (route complexe)\n3. Tester avec non-admin (montrer l'erreur)\n\nCes routes montrent les appels inter-services (User, MongoDB) et la sécurité.",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1705708899000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_user_service",
+      "parentId": "wrk_main",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "name": "User Service (REST)",
+      "description": "Service REST pour la gestion des utilisateurs - Port 3203",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1705708800000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_movie_service",
+      "parentId": "wrk_main",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "name": "Movie Service (GraphQL)",
+      "description": "Service GraphQL pour la gestion des films - Port 3001",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1705708799000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_booking_service",
+      "parentId": "wrk_main",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "name": "Booking Service (GraphQL)",
+      "description": "Service GraphQL pour la gestion des réservations - Port 3201\n\n⚠️ Ce service appelle les autres services:\n- Movie (GraphQL)\n- Schedule (gRPC)\n- User (REST)",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1705708798000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_schedule_service",
+      "parentId": "wrk_main",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "name": "📡 Schedule Service (gRPC)",
+      "description": "Le service `schedule` écoute sur gRPC (localhost:3002). Utilisez le client gRPC d'Insomnia (ou grpcurl) pour appeler `schedule.Schedule/GetByDate`.",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1705708797000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_schedule_grpc_note",
+      "parentId": "fld_schedule_service",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "url": "http://localhost:3002/",
+      "name": "Guide gRPC - GetByDate",
+      "description": "⚠️ Insomnia → New Request → gRPC Request\n1. Host: `localhost:3002`\n2. Importer `schedule.proto` (dossier `schedule/`)\n3. Méthode: `schedule.Schedule/GetByDate`\n4. Message d'exemple: `{ \"date\": \"20151201\" }`\n\nAlternative CLI:\n```\ngrpcurl -plaintext \\\n  -d '{\"date\":\"20151201\"}' \\\n  localhost:3002 schedule.Schedule/GetByDate\n```",
+      "method": "GET",
+      "body": {
+        "type": "json",
+        "raw": "{\"note\":\"Utiliser gRPC\"}"
+      },
+      "parameters": [],
+      "headers": [],
+      "_type": "request"
+    },
+    {
+      "_id": "wrk_main",
+      "parentId": null,
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "name": "UE-AD-A1-MIXTE",
+      "description": "Collection complète pour tester les microservices:\n- User (REST) - Port 3203\n- Movie (GraphQL) - Port 3001\n- Booking (GraphQL) - Port 3201\n- Schedule (gRPC) - Port 3002\n\n🎬 DÉMO ORAL:\n- Scénario Utilisateur: routes complexes pour un utilisateur\n- Scénario Administrateur: routes complexes pour un admin\n\n⚠️ Routes complexes marquées pour l'oral",
+      "scope": null,
+      "_type": "workspace"
+    }
+  ]
+}
+

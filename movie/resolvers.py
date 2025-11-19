@@ -1,19 +1,31 @@
 import json
+import os
 import requests
+from pymongo import MongoClient
+from bson.json_util import dumps
+from urllib.parse import quote_plus
 
 is_admin_cache = {}
 
-# Chargement de la base de données des films
-with open('{}/data/movies.json'.format("."), 'r') as jsf:
-    movies = json.load(jsf)["movies"]
-    print("Films chargés:", len(movies), "films")
+# Connexion MongoDB
+# Le mot de passe est encodé dans docker-compose.yml, sinon on utilise l'encodage par défaut
+default_password = quote_plus("*65%8XPuGaQ#")
+MONGO_URL = os.getenv("MONGO_URL", f"mongodb://root:{default_password}@localhost:27017/")
+# Connexion avec retry automatique (pymongo gère les reconnexions)
+client = MongoClient(MONGO_URL, serverSelectionTimeoutMS=5000)
+db = client["movies"]
+collection = db["movies"]
 
-
-def write_movies_to_file(movies_data):
-    """Sauvegarde les données de films dans le fichier JSON"""
-    with open('{}/data/movies.json'.format("."), 'w') as f:
-        full = {'movies': movies_data}
-        json.dump(full, f, indent=4)
+# Initialisation des données depuis JSON si la collection est vide
+if collection.count_documents({}) == 0:
+    print("Initialisation de la base de données MongoDB avec les données JSON...")
+    with open('{}/data/movies.json'.format("."), 'r') as jsf:
+        movies_data = json.load(jsf)["movies"]
+        if movies_data:
+            collection.insert_many(movies_data)
+            print(f"Films chargés: {len(movies_data)} films")
+else:
+    print(f"Base de données MongoDB déjà initialisée: {collection.count_documents({})} films")
 
 
 def check_admin(author) -> bool:
@@ -25,7 +37,8 @@ def check_admin(author) -> bool:
         return is_admin_cache[author]
 
     try:
-        resp = requests.get(f"http://localhost:3203/users/{author}")
+        # Utiliser le nom du service Docker
+        resp = requests.get(f"http://user:3203/users/{author}")
         if resp.status_code == 200:
             data = resp.json()
             is_admin = data.get("role", "") == "admin"
@@ -44,23 +57,28 @@ def check_admin(author) -> bool:
 
 def all_movies_resolver(obj, info):
     """Récupère tous les films"""
-    return movies
+    movies_list = list(collection.find({}))
+    # Convertir ObjectId en string pour JSON
+    for movie in movies_list:
+        if '_id' in movie:
+            movie['_id'] = str(movie['_id'])
+    return movies_list
 
 
 def movie_by_id_resolver(obj, info, id):
     """Récupère un film par son ID"""
-    for movie in movies:
-        if str(movie["id"]) == str(id):
-            return movie
-    return None
+    movie = collection.find_one({"id": str(id)})
+    if movie and '_id' in movie:
+        movie['_id'] = str(movie['_id'])
+    return movie
 
 
 def movie_by_title_resolver(obj, info, title):
     """Récupère un film par son titre"""
-    for movie in movies:
-        if str(movie["title"]).lower() == str(title).lower():
-            return movie
-    return None
+    movie = collection.find_one({"title": {"$regex": f"^{title}$", "$options": "i"}})
+    if movie and '_id' in movie:
+        movie['_id'] = str(movie['_id'])
+    return movie
 
 
 # ============================================================================
@@ -75,9 +93,9 @@ def add_movie_resolver(obj, info, movie):
         raise Exception("Accès refusé, administrateur requis")
     
     # Vérification de l'unicité de l'ID
-    for existing_movie in movies:
-        if str(existing_movie["id"]) == str(movie["id"]):
-            raise Exception("Film ID déjà existant")
+    existing_movie = collection.find_one({"id": str(movie["id"])})
+    if existing_movie:
+        raise Exception("Film ID déjà existant")
     
     # Création du nouveau film sans le champ author
     new_movie = {
@@ -87,8 +105,9 @@ def add_movie_resolver(obj, info, movie):
         "director": movie["director"]
     }
     
-    movies.append(new_movie)
-    write_movies_to_file(movies)
+    collection.insert_one(new_movie)
+    if '_id' in new_movie:
+        new_movie['_id'] = str(new_movie['_id'])
     
     return {
         "message": "Film ajouté avec succès",
@@ -101,16 +120,22 @@ def update_movie_rating_resolver(obj, info, id, rating, author):
     if not check_admin(author):
         raise Exception("Accès refusé, administrateur requis")
     
-    for movie in movies:
-        if str(movie["id"]) == str(id):
-            movie["rating"] = float(rating)
-            write_movies_to_file(movies)
-            return {
-                "message": "Note mise à jour avec succès",
-                "movie": movie
-            }
+    result = collection.update_one(
+        {"id": str(id)},
+        {"$set": {"rating": float(rating)}}
+    )
     
-    raise Exception("Film ID non trouvé")
+    if result.matched_count == 0:
+        raise Exception("Film ID non trouvé")
+    
+    movie = collection.find_one({"id": str(id)})
+    if movie and '_id' in movie:
+        movie['_id'] = str(movie['_id'])
+    
+    return {
+        "message": "Note mise à jour avec succès",
+        "movie": movie
+    }
 
 
 def delete_movie_resolver(obj, info, id, author):
@@ -118,16 +143,18 @@ def delete_movie_resolver(obj, info, id, author):
     if not check_admin(author):
         raise Exception("Accès refusé, administrateur requis")
     
-    for movie in movies:
-        if str(movie["id"]) == str(id):
-            movies.remove(movie)
-            write_movies_to_file(movies)
-            return {
-                "message": "Film supprimé avec succès",
-                "movie": movie
-            }
+    movie = collection.find_one({"id": str(id)})
+    if not movie:
+        raise Exception("Film ID non trouvé")
     
-    raise Exception("Film ID non trouvé")
+    collection.delete_one({"id": str(id)})
+    if '_id' in movie:
+        movie['_id'] = str(movie['_id'])
+    
+    return {
+        "message": "Film supprimé avec succès",
+        "movie": movie
+    }
 
 
 # ============================================================================

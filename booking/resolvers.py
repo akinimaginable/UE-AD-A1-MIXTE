@@ -1,28 +1,36 @@
 import json
+import os
 import requests
 import grpc
 import schedule_pb2
 import schedule_pb2_grpc
+from pymongo import MongoClient
+from urllib.parse import quote_plus
 
-# URLs des autres microservices
-MOVIE_SERVICE_URL = "http://localhost:3001"  # Service Movie en GraphQL
-SCHEDULE_SERVICE_URL = "localhost:3002"  # Service Schedule en gRPC
-USER_SERVICE_URL = "http://localhost:3203"
+# URLs des autres microservices (utiliser les noms de services Docker)
+MOVIE_SERVICE_URL = "http://movie:3001"  # Service Movie en GraphQL
+SCHEDULE_SERVICE_URL = "schedule:3002"  # Service Schedule en gRPC
+USER_SERVICE_URL = "http://user:3203"
 
-# Chargement de la base de données des réservations
-with open('{}/data/bookings.json'.format("."), "r") as jsf:
-    bookings = json.load(jsf)["bookings"]
-    print("Réservations chargées:", len(bookings), "utilisateurs")
+# Connexion MongoDB
+# Le mot de passe est encodé dans docker-compose.yml, sinon on utilise l'encodage par défaut
+default_password = quote_plus("*65%8XPuGaQ#")
+MONGO_URL = os.getenv("MONGO_URL", f"mongodb://root:{default_password}@localhost:27017/")
+# Connexion avec retry automatique (pymongo gère les reconnexions)
+client = MongoClient(MONGO_URL, serverSelectionTimeoutMS=5000)
+db = client["bookings"]
+collection = db["bookings"]
 
-
-# ============================================================================
-# FONCTIONS UTILITAIRES
-# ============================================================================
-
-def write_bookings_to_file(data):
-    """Sauvegarde les données de réservations dans le fichier JSON"""
-    with open('{}/data/bookings.json'.format("."), "w") as jsf:
-        json.dump({"bookings": data}, jsf, indent=4)
+# Initialisation des données depuis JSON si la collection est vide
+if collection.count_documents({}) == 0:
+    print("Initialisation de la base de données MongoDB avec les données JSON...")
+    with open('{}/data/bookings.json'.format("."), "r") as jsf:
+        bookings_data = json.load(jsf)["bookings"]
+        if bookings_data:
+            collection.insert_many(bookings_data)
+            print(f"Réservations chargées: {len(bookings_data)} utilisateurs")
+else:
+    print(f"Base de données MongoDB déjà initialisée: {collection.count_documents({})} réservations")
 
 
 def get_movie_details(movie_id):
@@ -112,25 +120,25 @@ def all_bookings_resolver(obj, info, userid):
     if not is_admin_user(userid):
         raise Exception("Accès refusé - droits administrateur requis")
     
-    return bookings
+    bookings_list = list(collection.find({}))
+    # Convertir ObjectId en string pour JSON
+    for booking in bookings_list:
+        if '_id' in booking:
+            booking['_id'] = str(booking['_id'])
+    return bookings_list
 
 
 def bookings_by_user_resolver(obj, info, userid):
     """Récupère toutes les réservations d'un utilisateur"""
-    for booking in bookings:
-        if booking['userid'] == userid:
-            return booking
-    
-    return None
+    booking = collection.find_one({"userid": userid})
+    if booking and '_id' in booking:
+        booking['_id'] = str(booking['_id'])
+    return booking
 
 
 def detailed_bookings_by_user_resolver(obj, info, userid):
     """Récupère les réservations détaillées d'un utilisateur avec infos des films et horaires"""
-    user_booking = None
-    for booking in bookings:
-        if booking['userid'] == userid:
-            user_booking = booking
-            break
+    user_booking = collection.find_one({"userid": userid})
     
     if not user_booking:
         return None
@@ -186,26 +194,25 @@ def create_booking_resolver(obj, info, input):
         raise Exception("Film non programmé à cette date")
     
     # Recherche ou création de l'utilisateur
-    user_booking = None
-    for booking in bookings:
-        if booking['userid'] == userid:
-            user_booking = booking
-            break
+    user_booking = collection.find_one({"userid": userid})
     
     if not user_booking:
         user_booking = {"userid": userid, "dates": []}
-        bookings.append(user_booking)
+        collection.insert_one(user_booking)
     
     # Recherche ou création de la date
     date_entry = None
-    for date_item in user_booking['dates']:
+    date_index = -1
+    for i, date_item in enumerate(user_booking['dates']):
         if date_item['date'] == date:
             date_entry = date_item
+            date_index = i
             break
     
     if not date_entry:
         date_entry = {"date": date, "movies": []}
         user_booking['dates'].append(date_entry)
+        date_index = len(user_booking['dates']) - 1
     
     # Vérification des doublons
     if movieid in date_entry['movies']:
@@ -213,7 +220,11 @@ def create_booking_resolver(obj, info, input):
     
     # Ajout de la réservation
     date_entry['movies'].append(movieid)
-    write_bookings_to_file(bookings)
+    user_booking['dates'][date_index] = date_entry
+    collection.update_one(
+        {"userid": userid},
+        {"$set": {"dates": user_booking['dates']}}
+    )
     
     return {
         "message": "Réservation créée avec succès",
@@ -227,34 +238,43 @@ def create_booking_resolver(obj, info, input):
 
 def delete_booking_resolver(obj, info, userid, movieid, date):
     """Supprimer une réservation spécifique"""
-    for booking in bookings:
-        if booking['userid'] == userid:
-            for date_entry in booking['dates']:
-                if date_entry['date'] == date and movieid in date_entry['movies']:
-                    # Suppression du film de la réservation
-                    date_entry['movies'].remove(movieid)
-                    
-                    # Suppression de la date si plus de films
-                    if not date_entry['movies']:
-                        booking['dates'].remove(date_entry)
-                    
-                    # Suppression de l'utilisateur si plus de dates
-                    if not booking['dates']:
-                        bookings.remove(booking)
-                    
-                    write_bookings_to_file(bookings)
-                    return {"message": "Réservation supprimée avec succès"}
+    booking = collection.find_one({"userid": userid})
+    if not booking:
+        raise Exception("Réservation non trouvée")
     
-    raise Exception("Réservation non trouvée")
+    updated_dates = []
+    found = False
+    for date_entry in booking['dates']:
+        if date_entry['date'] == date and movieid in date_entry['movies']:
+            found = True
+            # Suppression du film de la réservation
+            date_entry['movies'].remove(movieid)
+            # Garder la date seulement si elle a encore des films
+            if date_entry['movies']:
+                updated_dates.append(date_entry)
+        else:
+            updated_dates.append(date_entry)
+    
+    if not found:
+        raise Exception("Réservation non trouvée")
+    
+    # Mise à jour ou suppression de la réservation
+    if not updated_dates:
+        collection.delete_one({"userid": userid})
+    else:
+        collection.update_one(
+            {"userid": userid},
+            {"$set": {"dates": updated_dates}}
+        )
+    
+    return {"message": "Réservation supprimée avec succès"}
 
 
 def delete_all_user_bookings_resolver(obj, info, userid):
     """Supprimer toutes les réservations d'un utilisateur"""
-    for booking in bookings:
-        if booking['userid'] == userid:
-            bookings.remove(booking)
-            write_bookings_to_file(bookings)
-            return {"message": f"Toutes les réservations de {userid} ont été supprimées"}
+    result = collection.delete_one({"userid": userid})
+    if result.deleted_count == 0:
+        raise Exception("Aucune réservation trouvée pour cet utilisateur")
     
-    raise Exception("Aucune réservation trouvée pour cet utilisateur")
+    return {"message": f"Toutes les réservations de {userid} ont été supprimées"}
 
