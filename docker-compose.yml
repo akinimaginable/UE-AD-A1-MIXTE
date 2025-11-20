@@ -32,6 +32,9 @@ services:
       - db
     environment:
       MONGO_URL: "mongodb://root:%2A65%258XPuGaQ%23@db:27017/"
+      PERSISTENCE_TYPE: "JSON"
+    volumes:
+      - ./movie/data:/app/data
 
   booking:
     build:
@@ -46,6 +49,9 @@ services:
       - user
     environment:
       MONGO_URL: "mongodb://root:%2A65%258XPuGaQ%23@db:27017/"
+      PERSISTENCE_TYPE: "JSON"
+    volumes:
+      - ./booking/data:/app/data
 
   schedule:
     build:
@@ -57,6 +63,9 @@ services:
       - db
     environment:
       MONGO_URL: "mongodb://root:%2A65%258XPuGaQ%23@db:27017/"
+      PERSISTENCE_TYPE: "JSON"
+    volumes:
+      - ./schedule/data:/app/data
 
   user:
     build:
@@ -68,6 +77,9 @@ services:
       - db
     environment:
       MONGO_URL: "mongodb://root:%2A65%258XPuGaQ%23@db:27017/"
+      PERSISTENCE_TYPE: "JSON"
+    volumes:
+      - ./user/data:/app/data
 
 volumes:
   mongo_data:
