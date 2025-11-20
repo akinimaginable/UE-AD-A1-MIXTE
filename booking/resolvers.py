@@ -183,6 +183,7 @@ def detailed_bookings_by_user_resolver(obj, info, userid):
     if not user_booking:
         return None
     
+    
     detailed_bookings = []
     for date_entry in user_booking['dates']:
         date = date_entry['date']

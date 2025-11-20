@@ -266,15 +266,21 @@
     },
     {
       "name": "📡 Schedule Service (gRPC)",
-      "description": "Le service gRPC `schedule.Schedule` écoute sur `localhost:3002`.",
+      "description": "⚠️ IMPORTANT : gRPC ne peut PAS être testé avec une requête HTTP standard dans Postman.\n\n📋 OPTION 1 - Postman gRPC Client (Postman v9+) :\n1. Cliquez sur \"New\" > \"gRPC Request\"\n2. Host : `localhost:3002`\n3. Importez le fichier `schedule/schedule.proto`\n4. Sélectionnez la méthode (ex: `schedule.Schedule/GetByDate`)\n5. Entrez le payload JSON (ex: `{ \"date\": \"20151201\" }`)\n\n📋 OPTION 2 - grpcurl (CLI) :\nInstallez grpcurl : https://github.com/fullstorydev/grpcurl\n\nExemples de commandes :\n\n• GetAll :\ngrpcurl -plaintext localhost:3002 schedule.Schedule/GetAll\n\n• GetByDate :\ngrpcurl -plaintext -d '{\"date\":\"20151201\"}' localhost:3002 schedule.Schedule/GetByDate\n\n• AddToSchedule :\ngrpcurl -plaintext -d '{\"date\":\"20151201\",\"id\":\"720d006c-3a57-4b6a-b18f-9b713b073f3c\"}' localhost:3002 schedule.Schedule/AddToSchedule\n\n• RemoveFromSchedule :\ngrpcurl -plaintext -d '{\"date\":\"20151201\",\"id\":\"720d006c-3a57-4b6a-b18f-9b713b073f3c\"}' localhost:3002 schedule.Schedule/RemoveFromSchedule\n\n📁 Fichier proto : `schedule/schedule.proto`",
       "item": [
         {
-          "name": "Guide - GetByDate (Postman ou grpcurl)",
+          "name": "⚠️ Note - gRPC nécessite le client gRPC",
           "request": {
             "method": "GET",
             "header": [],
-            "url": "http://localhost:3002/",
-            "description": "Postman gRPC :\n1. New > gRPC Request\n2. Host : `localhost:3002`\n3. Importez `schedule.proto`\n4. Sélectionnez `schedule.Schedule/GetByDate`\n5. Payload exemple : `{ \\\"date\\\": \\\"20151201\\\" }`\n\nAlternative CLI : `grpcurl -plaintext -d '{\\\"date\\\":\\\"20151201\\\"}' localhost:3002 schedule.Schedule/GetByDate`\n(Réponse : un `DayScheduleList` listant les films programmés)."
+            "url": {
+              "raw": "http://localhost:3002/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3002",
+              "path": [""]
+            },
+            "description": "Cette requête HTTP ne fonctionnera PAS car gRPC utilise HTTP/2 et un protocole binaire.\n\nUtilisez plutôt :\n1. Le client gRPC de Postman (New > gRPC Request)\n2. Ou grpcurl en ligne de commande\n\nVoir la description du dossier parent pour les instructions complètes."
           }
         }
       ]

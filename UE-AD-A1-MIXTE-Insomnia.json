@@ -828,28 +828,99 @@
       "modified": 1705708800000,
       "created": 1705708800000,
       "name": "📡 Schedule Service (gRPC)",
-      "description": "Le service `schedule` écoute sur gRPC (localhost:3002). Utilisez le client gRPC d'Insomnia (ou grpcurl) pour appeler `schedule.Schedule/GetByDate`.",
+      "description": "⚠️ IMPORTANT : gRPC ne peut PAS être testé avec une requête HTTP standard.\n\n📋 OPTION 1 - Insomnia gRPC Client (recommandé) :\n1. Cliquez sur le bouton **+** dans le panneau gauche de cette collection\n2. Sélectionnez **\"gRPC Request\"**\n3. **Host et port** : `localhost:3002`\n4. Cliquez sur l'**icône de fichier** 📁 pour uploader le fichier Protobuf\n   - Fichier à uploader : `schedule/schedule.proto`\n5. Cliquez sur **\"Select Method\"** et choisissez une méthode :\n   - `schedule.Schedule/GetAll` (Unary - pas de body)\n   - `schedule.Schedule/GetByDate` (Unary - body: `{ \"date\": \"20151201\" }`)\n   - `schedule.Schedule/AddToSchedule` (Unary - body: `{ \"date\": \"20151201\", \"id\": \"720d006c-3a57-4b6a-b18f-9b713b073f3c\" }`)\n   - `schedule.Schedule/RemoveFromSchedule` (Unary - body: `{ \"date\": \"20151201\", \"id\": \"720d006c-3a57-4b6a-b18f-9b713b073f3c\" }`)\n6. Entrez le **Body** JSON selon la méthode choisie\n7. Cliquez sur **Send**\n\n📋 OPTION 2 - grpcurl (CLI) :\nInstallez grpcurl : https://github.com/fullstorydev/grpcurl\n\nExemples de commandes :\n\n• GetAll :\ngrpcurl -plaintext localhost:3002 schedule.Schedule/GetAll\n\n• GetByDate :\ngrpcurl -plaintext -d '{\"date\":\"20151201\"}' localhost:3002 schedule.Schedule/GetByDate\n\n• AddToSchedule :\ngrpcurl -plaintext -d '{\"date\":\"20151201\",\"id\":\"720d006c-3a57-4b6a-b18f-9b713b073f3c\"}' localhost:3002 schedule.Schedule/AddToSchedule\n\n• RemoveFromSchedule :\ngrpcurl -plaintext -d '{\"date\":\"20151201\",\"id\":\"720d006c-3a57-4b6a-b18f-9b713b073f3c\"}' localhost:3002 schedule.Schedule/RemoveFromSchedule\n\n📁 Fichier proto : `schedule/schedule.proto`",
       "environment": {},
       "environmentPropertyOrder": null,
       "metaSortKey": -1705708797000,
       "_type": "request_group"
     },
     {
-      "_id": "req_schedule_grpc_note",
+      "_id": "req_schedule_getall",
       "parentId": "fld_schedule_service",
       "modified": 1705708800000,
       "created": 1705708800000,
-      "url": "http://localhost:3002/",
-      "name": "Guide gRPC - GetByDate",
-      "description": "⚠️ Insomnia → New Request → gRPC Request\n1. Host: `localhost:3002`\n2. Importer `schedule.proto` (dossier `schedule/`)\n3. Méthode: `schedule.Schedule/GetByDate`\n4. Message d'exemple: `{ \"date\": \"20151201\" }`\n\nAlternative CLI:\n```\ngrpcurl -plaintext \\\n  -d '{\"date\":\"20151201\"}' \\\n  localhost:3002 schedule.Schedule/GetByDate\n```",
-      "method": "GET",
+      "url": "grpc://localhost:3002",
+      "name": "GetAll - Récupérer tout le planning",
+      "description": "⚠️ REQUÊTE gRPC\n\nMéthode: schedule.Schedule/GetAll\nType: Unary (pas de body nécessaire)\n\n📋 Configuration dans Insomnia:\n1. Cette requête est déjà configurée comme gRPC\n2. Upload le fichier `schedule/schedule.proto` dans les paramètres de la requête\n3. Sélectionne la méthode: schedule.Schedule/GetAll\n4. Body: vide (ou {})\n5. Clique sur Send",
       "body": {
-        "type": "json",
-        "raw": "{\"note\":\"Utiliser gRPC\"}"
+        "mimeType": "application/json",
+        "text": "{}"
       },
       "parameters": [],
       "headers": [],
-      "_type": "request"
+      "metaSortKey": -1705708796000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "grpcMethod": "schedule.Schedule/GetAll",
+      "grpcUrl": "grpc://localhost:3002",
+      "_type": "grpc_request"
+    },
+    {
+      "_id": "req_schedule_getbydate",
+      "parentId": "fld_schedule_service",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "url": "grpc://localhost:3002",
+      "name": "GetByDate - Planning par date",
+      "description": "⚠️ REQUÊTE gRPC\n\nMéthode: schedule.Schedule/GetByDate\nType: Unary\nBody: { \"date\": \"20151201\" }\n\n📋 Configuration dans Insomnia:\n1. Cette requête est déjà configurée comme gRPC\n2. Upload le fichier `schedule/schedule.proto` dans les paramètres de la requête\n3. Sélectionne la méthode: schedule.Schedule/GetByDate\n4. Body pré-rempli avec une date valide\n5. Clique sur Send\n\n✅ PRÊT À ENVOYER - Date valide pré-remplie",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"date\": \"20151201\"\n}"
+      },
+      "parameters": [],
+      "headers": [],
+      "metaSortKey": -1705708795000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "grpcMethod": "schedule.Schedule/GetByDate",
+      "grpcUrl": "grpc://localhost:3002",
+      "_type": "grpc_request"
+    },
+    {
+      "_id": "req_schedule_addtoschedule",
+      "parentId": "fld_schedule_service",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "url": "grpc://localhost:3002",
+      "name": "AddToSchedule - Ajouter un film au planning",
+      "description": "⚠️ REQUÊTE gRPC\n\nMéthode: schedule.Schedule/AddToSchedule\nType: Unary\nBody: { \"date\": \"20151201\", \"id\": \"720d006c-3a57-4b6a-b18f-9b713b073f3c\" }\n\n📋 Configuration dans Insomnia:\n1. Cette requête est déjà configurée comme gRPC\n2. Upload le fichier `schedule/schedule.proto` dans les paramètres de la requête\n3. Sélectionne la méthode: schedule.Schedule/AddToSchedule\n4. Body pré-rempli avec des données valides\n5. Clique sur Send\n\n✅ PRÊT À ENVOYER - Données valides pré-remplies",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"date\": \"20151201\",\n  \"id\": \"720d006c-3a57-4b6a-b18f-9b713b073f3c\"\n}"
+      },
+      "parameters": [],
+      "headers": [],
+      "metaSortKey": -1705708794000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "grpcMethod": "schedule.Schedule/AddToSchedule",
+      "grpcUrl": "grpc://localhost:3002",
+      "_type": "grpc_request"
+    },
+    {
+      "_id": "req_schedule_removefromschedule",
+      "parentId": "fld_schedule_service",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "url": "grpc://localhost:3002",
+      "name": "RemoveFromSchedule - Retirer un film du planning",
+      "description": "⚠️ REQUÊTE gRPC\n\nMéthode: schedule.Schedule/RemoveFromSchedule\nType: Unary\nBody: { \"date\": \"20151201\", \"id\": \"720d006c-3a57-4b6a-b18f-9b713b073f3c\" }\n\n📋 Configuration dans Insomnia:\n1. Cette requête est déjà configurée comme gRPC\n2. Upload le fichier `schedule/schedule.proto` dans les paramètres de la requête\n3. Sélectionne la méthode: schedule.Schedule/RemoveFromSchedule\n4. Body pré-rempli avec des données valides\n5. Clique sur Send\n\n✅ PRÊT À ENVOYER - Données valides pré-remplies",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"date\": \"20151201\",\n  \"id\": \"720d006c-3a57-4b6a-b18f-9b713b073f3c\"\n}"
+      },
+      "parameters": [],
+      "headers": [],
+      "metaSortKey": -1705708793000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "grpcMethod": "schedule.Schedule/RemoveFromSchedule",
+      "grpcUrl": "grpc://localhost:3002",
+      "_type": "grpc_request"
     },
     {
       "_id": "wrk_main",
