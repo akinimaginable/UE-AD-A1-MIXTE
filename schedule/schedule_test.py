@@ -7,7 +7,7 @@ import schedule_pb2_grpc
 TEST_MOVIE_ID = "uwu"
 TEST_DATE = "20151130"
 
-channel = grpc.insecure_channel('localhost:3002')
+channel = grpc.insecure_channel("localhost:3002")
 stub = schedule_pb2_grpc.ScheduleStub(channel)
 
 
@@ -28,6 +28,7 @@ def add_to_schedule_test():
     print("\n--- Testing AddToSchedule ---")
     stub.AddToSchedule(schedule_pb2.Movie(date=TEST_DATE, id=TEST_MOVIE_ID))
     print("Done!")
+
 
 def remove_from_schedule_test():
     print("\n--- Testing RemoveMovieFromSchedule ---")
