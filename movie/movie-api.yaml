@@ -1,6 +1,8 @@
 openapi: 3.1.1
 
 info:
+  version: 1.0.0
+  
   title: Movie API
   summary: This is the API of the Movie service
   description: This is the API of the Movie service, it should be much much much much much much much much much much much much much much much much much much much much much longer
@@ -137,7 +139,6 @@ components:
         movies:
           type: array
           items:
-            type: object
             $ref: '#/components/schemas/MovieItem'
 
     MovieItem:
