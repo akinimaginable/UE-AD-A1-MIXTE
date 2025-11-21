@@ -128,6 +128,60 @@
       "_type": "request"
     },
     {
+      "_id": "req_user_update",
+      "parentId": "fld_user_service",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "url": "http://localhost:3203/users/chris_rivers",
+      "name": "Update User",
+      "description": "Met à jour un utilisateur existant (PUT /users/<userid>)\n\nRoute: @user.py (137-176)\n\nMet à jour les champs d'un utilisateur (name, last_active, role).\nL'ID ne peut pas être modifié.",
+      "method": "PUT",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Chris Rivers Updated\",\n  \"last_active\": 1705708800,\n  \"role\": \"admin\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1705708795000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_user_delete",
+      "parentId": "fld_user_service",
+      "modified": 1705708800000,
+      "created": 1705708800000,
+      "url": "http://localhost:3203/users/garret_heaton",
+      "name": "Delete User",
+      "description": "Supprime un utilisateur (DELETE /users/<userid>)\n\nRoute: @user.py (179-205)\n\nSupprime un utilisateur de la base de données.\n⚠️ Attention : cette opération est irréversible.",
+      "method": "DELETE",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1705708794000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
       "_id": "req_movie_home",
       "parentId": "fld_movie_service",
       "modified": 1705708800000,
