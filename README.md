@@ -4,6 +4,10 @@
 
 Ce projet implémente une architecture de microservices avec des API mixtes (GraphQL, gRPC, REST) et utilise MongoDB comme base de données.
 
+### Persistance
+
+Vous pouvez choisir le moteur de persistance (fichiers json ou mongodb) en changeant la variable d'environnement `PERSISTENCE_TYPE` de `JSON` à `MONGODB`
+
 ### Services
 
 1. **Movie Service** (GraphQL) - Port 3001
