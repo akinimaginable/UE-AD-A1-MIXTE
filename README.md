@@ -52,7 +52,7 @@ Vous pouvez choisir le moteur de persistance (fichiers json ou mongodb) en chang
 │   Booking   │                      │    User     │
 │  (GraphQL)  │                      │   (REST)    │
 │  Port 3201  │                      │  Port 3203  │
-└──────┬──────┘                      └────────────┘
+└──────┬──────┘                      └─────────────┘
        │                                     ▲
        │                                     │
        ├──────────────┬──────────────────────┘
@@ -143,7 +143,7 @@ Cette commande va:
 
 - **Movie (GraphQL)**: http://localhost:3001/graphql
 - **Booking (GraphQL)**: http://localhost:3201/graphql
-- **Schedule (gRPC)**: localhost:3002 (nécessite un client gRPC)
+- **Schedule (gRPC)**: localhost:3002 (nécessite un client gRPC - voir section "Schedule Service (gRPC)" ci-dessous pour la configuration dans Insomnia)
 - **User (REST)**: http://localhost:3203/users
 - **Mongo Express**: http://localhost:8081
 
@@ -247,6 +247,64 @@ mutation {
       date
     }
   }
+}
+```
+
+#### Schedule Service (gRPC)
+
+⚠️ **Important** : gRPC nécessite une configuration spéciale dans Insomnia.
+
+**Configuration dans Insomnia** :
+
+1. **Créer une requête gRPC** :
+   - Cliquez sur le bouton **+** dans le panneau gauche
+   - Sélectionnez **"gRPC Request"**
+
+2. **Configurer le serveur** :
+   - **Host et port** : `localhost:3002`
+
+3. **Importer le fichier .proto** :
+   - Cliquez sur l'**icône de fichier** 📁 pour uploader le fichier Protobuf
+   - **Fichier à uploader** : `schedule/schedule.proto`
+
+4. **Sélectionner la méthode** :
+   - Cliquez sur **"Select Method"** et choisissez une méthode :
+     - `schedule.Schedule/GetAll` (Unary - pas de body)
+     - `schedule.Schedule/GetByDate` (Unary - body: `{ "date": "20151201" }`)
+     - `schedule.Schedule/AddToSchedule` (Unary - body: `{ "date": "20151201", "id": "720d006c-3a57-4b6a-b18f-9b713b073f3c" }`)
+     - `schedule.Schedule/RemoveFromSchedule` (Unary - body: `{ "date": "20151201", "id": "720d006c-3a57-4b6a-b18f-9b713b073f3c" }`)
+
+5. **Entrer le Body JSON** selon la méthode choisie
+
+6. **Envoyer la requête**
+
+**Exemples de requêtes gRPC** :
+
+**GetAll** (pas de body) :
+```json
+{}
+```
+
+**GetByDate** :
+```json
+{
+  "date": "20151201"
+}
+```
+
+**AddToSchedule** :
+```json
+{
+  "date": "20151201",
+  "id": "720d006c-3a57-4b6a-b18f-9b713b073f3c"
+}
+```
+
+**RemoveFromSchedule** :
+```json
+{
+  "date": "20151201",
+  "id": "720d006c-3a57-4b6a-b18f-9b713b073f3c"
 }
 ```
 
