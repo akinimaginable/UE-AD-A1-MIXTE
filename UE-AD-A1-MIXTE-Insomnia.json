@@ -308,17 +308,13 @@
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"query\": \"mutation { add_movie(movie: { id: \\\"demo-movie-oral-2025\\\", title: \\\"Nouveau Film Demo\\\", rating: 8.5, director: \\\"Realisateur Demo\\\" }) { message movie { id title rating director } } }\"\n}"
+        "text": "{\n  \"query\": \"mutation { add_movie(movie: { id: \\\"demo-movie-oral-2025\\\", title: \\\"Nouveau Film Demo\\\", rating: 8.5, director: \\\"Realisateur Demo\\\", author: \\\"chris_rivers\\\" }) { message movie { id title rating director } } }\"\n}"
       },
       "parameters": [],
       "headers": [
         {
           "name": "Content-Type",
           "value": "application/json"
-        },
-        {
-          "name": "x-user-x",
-          "value": "chris_rivers"
         }
       ],
       "authentication": {},
@@ -343,17 +339,13 @@
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"query\": \"mutation { add_movie(movie: { id: \\\"test-movie-456\\\", title: \\\"Film Non Autorisé\\\", rating: 5.0, director: \\\"Test\\\" }) { message movie { id title } } }\"\n}"
+        "text": "{\n  \"query\": \"mutation { add_movie(movie: { id: \\\"test-movie-456\\\", title: \\\"Film Non Autorisé\\\", rating: 5.0, director: \\\"Test\\\", author: \\\"garret_heaton\\\" }) { message movie { id title } } }\"\n}"
       },
       "parameters": [],
       "headers": [
         {
           "name": "Content-Type",
           "value": "application/json"
-        },
-        {
-          "name": "x-user-x",
-          "value": "garret_heaton"
         }
       ],
       "authentication": {},
@@ -378,17 +370,13 @@
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"query\": \"mutation { update_movie_rating(id: \\\"267eedb8-0f5d-42d5-8f43-72426b9fb3e6\\\", rating: 9.0) { message movie { id title rating } } }\"\n}"
+        "text": "{\n  \"query\": \"mutation { update_movie_rating(id: \\\"267eedb8-0f5d-42d5-8f43-72426b9fb3e6\\\", rating: 9.0, author: \\\"chris_rivers\\\") { message movie { id title rating } } }\"\n}"
       },
       "parameters": [],
       "headers": [
         {
           "name": "Content-Type",
           "value": "application/json"
-        },
-        {
-          "name": "x-user-x",
-          "value": "chris_rivers"
         }
       ],
       "authentication": {},
@@ -413,17 +401,13 @@
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"query\": \"mutation { delete_movie(id: \\\"demo-movie-oral-2025\\\") { message movie { id title } } }\"\n}"
+        "text": "{\n  \"query\": \"mutation { delete_movie(id: \\\"demo-movie-oral-2025\\\", author: \\\"chris_rivers\\\") { message movie { id title } } }\"\n}"
       },
       "parameters": [],
       "headers": [
         {
           "name": "Content-Type",
           "value": "application/json"
-        },
-        {
-          "name": "x-user-x",
-          "value": "chris_rivers"
         }
       ],
       "authentication": {},
@@ -471,17 +455,13 @@
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"query\": \"query { all_bookings { userid dates { date movies } } }\"\n}"
+        "text": "{\n  \"query\": \"query { all_bookings(userid: \\\"chris_rivers\\\") { userid dates { date movies } } }\"\n}"
       },
       "parameters": [],
       "headers": [
         {
           "name": "Content-Type",
           "value": "application/json"
-        },
-        {
-          "name": "x-user-x",
-          "value": "chris_rivers"
         }
       ],
       "authentication": {},
@@ -506,17 +486,13 @@
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"query\": \"query { all_bookings { userid dates { date movies } } }\"\n}"
+        "text": "{\n  \"query\": \"query { all_bookings(userid: \\\"garret_heaton\\\") { userid dates { date movies } } }\"\n}"
       },
       "parameters": [],
       "headers": [
         {
           "name": "Content-Type",
           "value": "application/json"
-        },
-        {
-          "name": "x-user-x",
-          "value": "garret_heaton"
         }
       ],
       "authentication": {},
@@ -541,17 +517,13 @@
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"query\": \"query { bookings_by_user { userid dates { date movies } } }\"\n}"
+        "text": "{\n  \"query\": \"query { bookings_by_user(userid: \\\"chris_rivers\\\") { userid dates { date movies } } }\"\n}"
       },
       "parameters": [],
       "headers": [
         {
           "name": "Content-Type",
           "value": "application/json"
-        },
-        {
-          "name": "x-user-x",
-          "value": "chris_rivers"
         }
       ],
       "authentication": {},
@@ -576,17 +548,13 @@
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"query\": \"query { detailed_bookings_by_user { userid bookings { date movies { movie { id title rating director } schedule { date movies } } } } }\"\n}"
+        "text": "{\n  \"query\": \"query { detailed_bookings_by_user(userid: \\\"chris_rivers\\\") { userid bookings { date movies { movie { id title rating director } schedule { date movies } } } } }\"\n}"
       },
       "parameters": [],
       "headers": [
         {
           "name": "Content-Type",
           "value": "application/json"
-        },
-        {
-          "name": "x-user-x",
-          "value": "chris_rivers"
         }
       ],
       "authentication": {},
@@ -611,17 +579,13 @@
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"query\": \"mutation { create_booking(input: { movieid: \\\"720d006c-3a57-4b6a-b18f-9b713b073f3c\\\", date: \\\"20151203\\\" }) { message booking { userid movieid date } } }\"\n}"
+        "text": "{\n  \"query\": \"mutation { create_booking(input: { userid: \\\"peter_curley\\\", movieid: \\\"720d006c-3a57-4b6a-b18f-9b713b073f3c\\\", date: \\\"20151203\\\" }) { message booking { userid movieid date } } }\"\n}"
       },
       "parameters": [],
       "headers": [
         {
           "name": "Content-Type",
           "value": "application/json"
-        },
-        {
-          "name": "x-user-x",
-          "value": "peter_curley"
         }
       ],
       "authentication": {},
@@ -646,17 +610,13 @@
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"query\": \"mutation { delete_booking(movieid: \\\"7daf7208-be4d-4944-a3ae-c1c2f516f3e6\\\", date: \\\"20151201\\\") { message } }\"\n}"
+        "text": "{\n  \"query\": \"mutation { delete_booking(userid: \\\"garret_heaton\\\", movieid: \\\"7daf7208-be4d-4944-a3ae-c1c2f516f3e6\\\", date: \\\"20151201\\\") { message } }\"\n}"
       },
       "parameters": [],
       "headers": [
         {
           "name": "Content-Type",
           "value": "application/json"
-        },
-        {
-          "name": "x-user-x",
-          "value": "garret_heaton"
         }
       ],
       "authentication": {},
@@ -681,17 +641,13 @@
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"query\": \"mutation { delete_all_user_bookings { message } }\"\n}"
+        "text": "{\n  \"query\": \"mutation { delete_all_user_bookings(userid: \\\"test_user\\\") { message } }\"\n}"
       },
       "parameters": [],
       "headers": [
         {
           "name": "Content-Type",
           "value": "application/json"
-        },
-        {
-          "name": "x-user-x",
-          "value": "test_user"
         }
       ],
       "authentication": {},
@@ -716,17 +672,13 @@
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"query\": \"mutation { create_booking(input: { movieid: \\\"720d006c-3a57-4b6a-b18f-9b713b073f3c\\\", date: \\\"20151203\\\" }) { message booking { userid movieid date } } }\"\n}"
+        "text": "{\n  \"query\": \"mutation { create_booking(input: { userid: \\\"peter_curley\\\", movieid: \\\"720d006c-3a57-4b6a-b18f-9b713b073f3c\\\", date: \\\"20151203\\\" }) { message booking { userid movieid date } } }\"\n}"
       },
       "parameters": [],
       "headers": [
         {
           "name": "Content-Type",
           "value": "application/json"
-        },
-        {
-          "name": "x-user-x",
-          "value": "peter_curley"
         }
       ],
       "authentication": {},
@@ -751,17 +703,13 @@
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"query\": \"query { detailed_bookings_by_user { userid bookings { date movies { movie { id title rating director } schedule { date movies } } } } }\"\n}"
+        "text": "{\n  \"query\": \"query { detailed_bookings_by_user(userid: \\\"peter_curley\\\") { userid bookings { date movies { movie { id title rating director } schedule { date movies } } } } }\"\n}"
       },
       "parameters": [],
       "headers": [
         {
           "name": "Content-Type",
           "value": "application/json"
-        },
-        {
-          "name": "x-user-x",
-          "value": "peter_curley"
         }
       ],
       "authentication": {},
@@ -786,17 +734,13 @@
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"query\": \"query { all_bookings { userid dates { date movies } } }\"\n}"
+        "text": "{\n  \"query\": \"query { all_bookings(userid: \\\"chris_rivers\\\") { userid dates { date movies } } }\"\n}"
       },
       "parameters": [],
       "headers": [
         {
           "name": "Content-Type",
           "value": "application/json"
-        },
-        {
-          "name": "x-user-x",
-          "value": "chris_rivers"
         }
       ],
       "authentication": {},
@@ -821,17 +765,13 @@
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"query\": \"mutation { add_movie(movie: { id: \\\"demo-movie-oral-2025\\\", title: \\\"Nouveau Film Demo\\\", rating: 8.5, director: \\\"Realisateur Demo\\\" }) { message movie { id title rating director } } }\"\n}"
+        "text": "{\n  \"query\": \"mutation { add_movie(movie: { id: \\\"demo-movie-oral-2025\\\", title: \\\"Nouveau Film Demo\\\", rating: 8.5, director: \\\"Realisateur Demo\\\", author: \\\"chris_rivers\\\" }) { message movie { id title rating director } } }\"\n}"
       },
       "parameters": [],
       "headers": [
         {
           "name": "Content-Type",
           "value": "application/json"
-        },
-        {
-          "name": "x-user-x",
-          "value": "chris_rivers"
         }
       ],
       "authentication": {},
@@ -856,17 +796,13 @@
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"query\": \"mutation { add_movie(movie: { id: \\\"demo-movie-non-admin\\\", title: \\\"Film Non Autorisé\\\", rating: 5.0, director: \\\"Test\\\" }) { message movie { id title } } }\"\n}"
+        "text": "{\n  \"query\": \"mutation { add_movie(movie: { id: \\\"demo-movie-non-admin\\\", title: \\\"Film Non Autorisé\\\", rating: 5.0, director: \\\"Test\\\", author: \\\"garret_heaton\\\" }) { message movie { id title } } }\"\n}"
       },
       "parameters": [],
       "headers": [
         {
           "name": "Content-Type",
           "value": "application/json"
-        },
-        {
-          "name": "x-user-x",
-          "value": "garret_heaton"
         }
       ],
       "authentication": {},
