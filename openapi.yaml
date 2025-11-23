@@ -8,7 +8,12 @@ info:
     GraphQL (`/graphql`) tandis que le service User expose des routes REST
     classiques. Toutes les opérations persistent leurs données dans MongoDB.
 servers:
-  - url: http://localhost
+  - url: http://localhost:3203
+    description: User Service (REST)
+  - url: http://localhost:3001
+    description: Movie Service (GraphQL)
+  - url: http://localhost:3201
+    description: Booking Service (GraphQL)
 paths:
   /users:
     get:
@@ -43,6 +48,16 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/User"
+        "400":
+          description: L'ID utilisateur existe déjà
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "User ID already exists"
   /users/{userid}:
     parameters:
       - $ref: "#/components/parameters/UserId"
@@ -68,11 +83,43 @@ paths:
       responses:
         "200":
           description: Utilisateur mis à jour
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "404":
+          description: Utilisateur introuvable
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "User ID not found"
     delete:
       summary: Supprimer un utilisateur
       responses:
         "200":
           description: Suppression confirmée
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "User deleted successfully"
+        "404":
+          description: Utilisateur introuvable
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "User ID not found"
   /users/admin:
     get:
       summary: Lister les administrateurs
@@ -93,6 +140,10 @@ paths:
       description: >
         Accepte n'importe quelle requête/mutation définie dans `movie.graphql`
         (ex: `all_movies`, `add_movie`, `delete_movie`, etc.).
+        Endpoint réel: http://localhost:3001/graphql
+      servers:
+        - url: http://localhost:3001
+          description: Movie Service (GraphQL)
       requestBody:
         required: true
         content:
@@ -117,7 +168,13 @@ paths:
                 }
       responses:
         "200":
-          description: Réponse GraphQL
+          description: Réponse GraphQL réussie
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GraphQLResponse"
+        "400":
+          description: Erreur GraphQL (requête invalide ou erreur d'exécution)
           content:
             application/json:
               schema:
@@ -128,6 +185,10 @@ paths:
       description: >
         Accepte n'importe quelle requête/mutation définie dans `booking.graphql`
         (ex: `detailed_bookings_by_user`, `create_booking`, `delete_booking`, etc.).
+        Endpoint réel: http://localhost:3201/graphql
+      servers:
+        - url: http://localhost:3201
+          description: Booking Service (GraphQL)
       requestBody:
         required: true
         content:
@@ -150,7 +211,13 @@ paths:
                 }
       responses:
         "200":
-          description: Réponse GraphQL
+          description: Réponse GraphQL réussie
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GraphQLResponse"
+        "400":
+          description: Erreur GraphQL (requête invalide ou erreur d'exécution)
           content:
             application/json:
               schema:
